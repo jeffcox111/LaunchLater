@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="3ec72c24-a249-4571-ba78-cc46d81375f3" name="Jeff@MEGATRON 2010-05-22 01:17:07" runUser="Megatron\Jeff" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="56af038c-9556-44d9-ab8d-01898a7ceee6">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment userDeploymentRoot="C:\Users\Jeff\Documents\My Dropbox\JeffDev\JeffDev\Dev\MS.Net\LaunchLater\TestResults" useDefaultDeploymentRoot="false" enabled="false" runDeploymentRoot="Jeff_MEGATRON 2010-05-22 01_17_07">
+      <DeploymentItem filename="C:\Users\Jeff\Documents\My Dropbox\JeffDev\JeffDev\Dev\MS.Net\LaunchLater\LaunchLaterOM\bin\Debug\LaunchLaterOM.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2010-05-22T01:17:07.7504649-05:00" queuing="2010-05-22T01:17:07.8244692-05:00" start="2010-05-22T01:17:07.8434703-05:00" finish="2010-05-22T01:17:08.4625057-05:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="TestConfigurationLoaded_Fail" storage="c:\users\jeff\documents\my dropbox\jeffdev\jeffdev\dev\ms.net\launchlater\launchlaterunittests\bin\debug\launchlaterunittests.dll" id="e9938242-d1ec-2238-cfbd-361c404e8041">
+      <Execution id="8e33018a-870e-4a39-9a51-aac3f0a30139" />
+      <TestMethod codeBase="C:/Users/Jeff/Documents/My Dropbox/JeffDev/JeffDev/Dev/MS.Net/LaunchLater/LaunchLaterUnitTests/bin/Debug/LaunchLaterUnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="LaunchLaterUnitTests.LLApplicationManagerTests, LaunchLaterUnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestConfigurationLoaded_Fail" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="e9938242-d1ec-2238-cfbd-361c404e8041" executionId="8e33018a-870e-4a39-9a51-aac3f0a30139" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="8e33018a-870e-4a39-9a51-aac3f0a30139" testId="e9938242-d1ec-2238-cfbd-361c404e8041" testName="TestConfigurationLoaded_Fail" computerName="MEGATRON" duration="00:00:00.0823427" startTime="2010-05-22T01:17:07.9194746-05:00" endTime="2010-05-22T01:17:08.3735006-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8e33018a-870e-4a39-9a51-aac3f0a30139">
+      <Output>
+        <ErrorInfo>
+          <Message>Test method LaunchLaterUnitTests.LLApplicationManagerTests.TestConfigurationLoaded_Fail threw exception System.IO.FileNotFoundException, but exception LaunchLaterOM.LLConfigurationException was expected. Exception message: System.IO.FileNotFoundException: Could not find file 'C:\Users\Jeff\Documents\My Dropbox\JeffDev\JeffDev\Dev\MS.Net\LaunchLater\LaunchLaterUnitTests\bin\Debug\blah.config'.</Message>
+          <StackTrace>    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at System.Xml.XmlDownloadManager.GetStream(Uri uri, ICredentials credentials, IWebProxy proxy, RequestCachePolicy cachePolicy)
+   at System.Xml.XmlUrlResolver.GetEntity(Uri absoluteUri, String role, Type ofObjectToReturn)
+   at System.Xml.XmlReaderSettings.CreateReader(String inputUri, XmlParserContext inputContext)
+   at System.Xml.XmlReader.Create(String inputUri, XmlReaderSettings settings, XmlParserContext inputContext)
+   at System.Xml.Linq.XDocument.Load(String uri, LoadOptions options)
+   at System.Xml.Linq.XDocument.Load(String uri)
+   at LaunchLaterOM.Configuration.LLProfile.GetProfiles(String configFileName) in C:\Users\Jeff\Documents\My Dropbox\JeffDev\JeffDev\Dev\MS.Net\LaunchLater\LaunchLaterOM\Configuration\LLProfiles.cs:line 22
+   at LaunchLaterOM.LLConfiguration..ctor(String configurationFile) in C:\Users\Jeff\Documents\My Dropbox\JeffDev\JeffDev\Dev\MS.Net\LaunchLater\LaunchLaterOM\Configuration\LLConfiguration.cs:line 20
+   at LaunchLaterUnitTests.LLApplicationManagerTests.TestConfigurationLoaded_Fail() in C:\Users\Jeff\Documents\My Dropbox\JeffDev\JeffDev\Dev\MS.Net\LaunchLater\LaunchLaterUnitTests\LLApplicationManagerTests.cs:line 89
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>
