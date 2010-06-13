@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="9edcea35-883a-4288-9a4a-31ce86129b68" name="Jeff@MEGATRON 2010-05-22 01:18:26" runUser="Megatron\Jeff" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="56af038c-9556-44d9-ab8d-01898a7ceee6">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment userDeploymentRoot="C:\Users\Jeff\Documents\My Dropbox\JeffDev\JeffDev\Dev\MS.Net\LaunchLater\TestResults" useDefaultDeploymentRoot="false" enabled="false" runDeploymentRoot="Jeff_MEGATRON 2010-05-22 01_18_26">
+      <DeploymentItem filename="C:\Users\Jeff\Documents\My Dropbox\JeffDev\JeffDev\Dev\MS.Net\LaunchLater\LaunchLaterOM\bin\Debug\LaunchLaterOM.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2010-05-22T01:18:26.6159758-05:00" queuing="2010-05-22T01:18:29.0911174-05:00" start="2010-05-22T01:18:29.3451319-05:00" finish="2010-05-22T01:18:49.4642826-05:00" />
+  <ResultSummary outcome="Error">
+    <Counters total="1" executed="1" error="0" failed="0" timeout="0" aborted="1" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+    <RunInfos>
+      <RunInfo computerName="MEGATRON" outcome="Error" timestamp="2010-05-22T01:18:49.4622825-05:00">
+        <Text>Test host process exited unexpectedly.</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="TestConfigurationLoaded_Fail" storage="c:\users\jeff\documents\my dropbox\jeffdev\jeffdev\dev\ms.net\launchlater\launchlaterunittests\bin\debug\launchlaterunittests.dll" id="e9938242-d1ec-2238-cfbd-361c404e8041">
+      <Execution id="a2664e9e-3225-4d9e-bc35-6055ccbd5b06" />
+      <TestMethod codeBase="C:/Users/Jeff/Documents/My Dropbox/JeffDev/JeffDev/Dev/MS.Net/LaunchLater/LaunchLaterUnitTests/bin/Debug/LaunchLaterUnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="LaunchLaterUnitTests.LLApplicationManagerTests, LaunchLaterUnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestConfigurationLoaded_Fail" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="e9938242-d1ec-2238-cfbd-361c404e8041" executionId="a2664e9e-3225-4d9e-bc35-6055ccbd5b06" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="a2664e9e-3225-4d9e-bc35-6055ccbd5b06" testId="e9938242-d1ec-2238-cfbd-361c404e8041" testName="TestConfigurationLoaded_Fail" computerName="MEGATRON" duration="00:00:20.0091444" startTime="2010-05-22T01:18:29.4551382-05:00" endTime="2010-05-22T01:18:49.4642826-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Aborted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a2664e9e-3225-4d9e-bc35-6055ccbd5b06">
+    </UnitTestResult>
+  </Results>
+</TestRun>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="87c9f1a3-b076-4846-aa97-c63f74224096" name="Jeff@MEGATRON 2010-05-20 23:27:24" runUser="Megatron\Jeff" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="56af038c-9556-44d9-ab8d-01898a7ceee6">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment userDeploymentRoot="C:\Users\Jeff\Documents\My Dropbox\JeffDev\JeffDev\Dev\MS.Net\LaunchLater\TestResults" useDefaultDeploymentRoot="false" enabled="false" runDeploymentRoot="Jeff_MEGATRON 2010-05-20 23_27_24">
+      <DeploymentItem filename="C:\Users\Jeff\Documents\My Dropbox\JeffDev\JeffDev\Dev\MS.Net\LaunchLater\LaunchLaterOM\bin\Debug\LaunchLaterOM.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2010-05-20T23:27:24.8589555-05:00" queuing="2010-05-20T23:27:24.8999578-05:00" start="2010-05-20T23:27:24.9119585-05:00" finish="2010-05-20T23:27:25.5219934-05:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="5" executed="5" passed="5" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="TestApplicationXMLLoaded_Success" storage="c:\users\jeff\documents\my dropbox\jeffdev\jeffdev\dev\ms.net\launchlater\launchlaterunittests\bin\debug\launchlaterunittests.dll" id="d281e286-241a-8adb-c242-41eb58fdb94d">
+      <Execution id="27517bf0-f107-47e4-b771-067bdc23782b" />
+      <TestMethod codeBase="C:/Users/Jeff/Documents/My Dropbox/JeffDev/JeffDev/Dev/MS.Net/LaunchLater/LaunchLaterUnitTests/bin/Debug/LaunchLaterUnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="LaunchLaterUnitTests.LLApplicationManagerTests, LaunchLaterUnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestApplicationXMLLoaded_Success" />
+    </UnitTest>
+    <UnitTest name="TestConfigurationLoaded_Success" storage="c:\users\jeff\documents\my dropbox\jeffdev\jeffdev\dev\ms.net\launchlater\launchlaterunittests\bin\debug\launchlaterunittests.dll" id="ce1452c0-aa1d-2f96-9fe3-275496b94810">
+      <Execution id="4fbd0059-8cfb-4e43-915a-f0d178d3dad3" />
+      <TestMethod codeBase="C:/Users/Jeff/Documents/My Dropbox/JeffDev/JeffDev/Dev/MS.Net/LaunchLater/LaunchLaterUnitTests/bin/Debug/LaunchLaterUnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="LaunchLaterUnitTests.LLApplicationManagerTests, LaunchLaterUnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestConfigurationLoaded_Success" />
+    </UnitTest>
+    <UnitTest name="TestAppDetectsItselfTryingToRun_Fail" storage="c:\users\jeff\documents\my dropbox\jeffdev\jeffdev\dev\ms.net\launchlater\launchlaterunittests\bin\debug\launchlaterunittests.dll" id="c8c31700-2714-c588-e344-2ddb6a3a82da">
+      <Execution id="a7e16ed3-162a-4be3-ab49-3bdf8b3b2f23" />
+      <TestMethod codeBase="C:/Users/Jeff/Documents/My Dropbox/JeffDev/JeffDev/Dev/MS.Net/LaunchLater/LaunchLaterUnitTests/bin/Debug/LaunchLaterUnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="LaunchLaterUnitTests.LLApplicationManagerTests, LaunchLaterUnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestAppDetectsItselfTryingToRun_Fail" />
+    </UnitTest>
+    <UnitTest name="TestConfigurationLoaded_Fail" storage="c:\users\jeff\documents\my dropbox\jeffdev\jeffdev\dev\ms.net\launchlater\launchlaterunittests\bin\debug\launchlaterunittests.dll" id="e9938242-d1ec-2238-cfbd-361c404e8041">
+      <Execution id="7cfc6324-f22a-4806-986e-d140e1bee6f5" />
+      <TestMethod codeBase="C:/Users/Jeff/Documents/My Dropbox/JeffDev/JeffDev/Dev/MS.Net/LaunchLater/LaunchLaterUnitTests/bin/Debug/LaunchLaterUnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="LaunchLaterUnitTests.LLApplicationManagerTests, LaunchLaterUnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestConfigurationLoaded_Fail" />
+    </UnitTest>
+    <UnitTest name="TestAppDetectsItselfTryingToRun_Success" storage="c:\users\jeff\documents\my dropbox\jeffdev\jeffdev\dev\ms.net\launchlater\launchlaterunittests\bin\debug\launchlaterunittests.dll" id="60ed68ac-ba02-16e5-04da-c763bd3cfa97">
+      <Execution id="487bab7f-462f-4363-835a-b8fa8bca8d6a" />
+      <TestMethod codeBase="C:/Users/Jeff/Documents/My Dropbox/JeffDev/JeffDev/Dev/MS.Net/LaunchLater/LaunchLaterUnitTests/bin/Debug/LaunchLaterUnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="LaunchLaterUnitTests.LLApplicationManagerTests, LaunchLaterUnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestAppDetectsItselfTryingToRun_Success" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="c8c31700-2714-c588-e344-2ddb6a3a82da" executionId="a7e16ed3-162a-4be3-ab49-3bdf8b3b2f23" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="60ed68ac-ba02-16e5-04da-c763bd3cfa97" executionId="487bab7f-462f-4363-835a-b8fa8bca8d6a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ce1452c0-aa1d-2f96-9fe3-275496b94810" executionId="4fbd0059-8cfb-4e43-915a-f0d178d3dad3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d281e286-241a-8adb-c242-41eb58fdb94d" executionId="27517bf0-f107-47e4-b771-067bdc23782b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e9938242-d1ec-2238-cfbd-361c404e8041" executionId="7cfc6324-f22a-4806-986e-d140e1bee6f5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="a7e16ed3-162a-4be3-ab49-3bdf8b3b2f23" testId="c8c31700-2714-c588-e344-2ddb6a3a82da" testName="TestAppDetectsItselfTryingToRun_Fail" computerName="MEGATRON" duration="00:00:00.0218960" startTime="2010-05-20T23:27:25.0059639-05:00" endTime="2010-05-20T23:27:25.4179875-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a7e16ed3-162a-4be3-ab49-3bdf8b3b2f23">
+    </UnitTestResult>
+    <UnitTestResult executionId="487bab7f-462f-4363-835a-b8fa8bca8d6a" testId="60ed68ac-ba02-16e5-04da-c763bd3cfa97" testName="TestAppDetectsItselfTryingToRun_Success" computerName="MEGATRON" duration="00:00:00.0002732" startTime="2010-05-20T23:27:25.4279880-05:00" endTime="2010-05-20T23:27:25.4399887-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="487bab7f-462f-4363-835a-b8fa8bca8d6a">
+    </UnitTestResult>
+    <UnitTestResult executionId="4fbd0059-8cfb-4e43-915a-f0d178d3dad3" testId="ce1452c0-aa1d-2f96-9fe3-275496b94810" testName="TestConfigurationLoaded_Success" computerName="MEGATRON" duration="00:00:00.0072930" startTime="2010-05-20T23:27:25.4429889-05:00" endTime="2010-05-20T23:27:25.4599899-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4fbd0059-8cfb-4e43-915a-f0d178d3dad3">
+    </UnitTestResult>
+    <UnitTestResult executionId="27517bf0-f107-47e4-b771-067bdc23782b" testId="d281e286-241a-8adb-c242-41eb58fdb94d" testName="TestApplicationXMLLoaded_Success" computerName="MEGATRON" duration="00:00:00.0028696" startTime="2010-05-20T23:27:25.4609899-05:00" endTime="2010-05-20T23:27:25.4719905-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="27517bf0-f107-47e4-b771-067bdc23782b">
+    </UnitTestResult>
+    <UnitTestResult executionId="7cfc6324-f22a-4806-986e-d140e1bee6f5" testId="e9938242-d1ec-2238-cfbd-361c404e8041" testName="TestConfigurationLoaded_Fail" computerName="MEGATRON" duration="00:00:00.0090434" startTime="2010-05-20T23:27:25.4739907-05:00" endTime="2010-05-20T23:27:25.4969920-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7cfc6324-f22a-4806-986e-d140e1bee6f5">
+    </UnitTestResult>
+  </Results>
+</TestRun>

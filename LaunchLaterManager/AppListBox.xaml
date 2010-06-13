@@ -1,0 +1,39 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:LaunchLaterManager_ViewModels="clr-namespace:LaunchLaterManager.ViewModels" x:Class="LaunchLaterManager.AppListBox" 
+             xmlns:local="clr-namespace:LaunchLaterManager"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             >
+    <UserControl.Resources>
+        
+        
+        <DataTemplate x:Key="ApplicationsTemplate">
+            
+                <local:AppView OnChangeHasBeenMade="AppView_OnChangeHasBeenMade" OnAppDeleted="AppView_OnAppDeleted"></local:AppView>
+
+            
+        </DataTemplate>
+        
+    </UserControl.Resources>
+       
+    <Grid x:Name="grid" >
+
+        
+            <ItemsControl Name="ApplicationsListView" ItemsSource="{Binding Applications}" ItemTemplate="{StaticResource ApplicationsTemplate }"
+                  Background="Black"  VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Vertical">
+                        
+                    </VirtualizingStackPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        
+    </Grid>
+   
+</UserControl>
