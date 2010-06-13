@@ -82,21 +82,9 @@ namespace LaunchLaterUnitTests
 
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(LLConfigurationException))]
-        public void TestConfigurationLoaded_Fail()
-        {
-            LLConfiguration config = new LLConfiguration("blah.config");
-        }
+       
 
-        [TestMethod]
-        public void TestApplicationXMLLoaded_Success()
-        {
-            LLConfiguration config = new LLConfiguration("LaunchLaterApps.config");
-            var apps = config.Profiles.First().Applications;
-            var NotePadXML = apps.First().ToString();
-            Assert.IsTrue(NotePadXML == @"<LLApplication Name=""Notepad"" FullPath=""notepad.exe"" DelaySeconds=""3"" Arguments="""" />");
-        }
+        
 
        
 
