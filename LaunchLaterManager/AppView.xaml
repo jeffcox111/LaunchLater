@@ -99,7 +99,7 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DeleteButton">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
                         </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="textBox">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DelaySecondsText">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
                         </ObjectAnimationUsingKeyFrames>
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="textBlock1">
@@ -108,13 +108,13 @@
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="textBlock1">
                             <EasingDoubleKeyFrame KeyTime="0" Value="12"/>
                         </DoubleAnimationUsingKeyFrames>
-                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="textBox">
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="DelaySecondsText">
                         	<EasingDoubleKeyFrame KeyTime="0" Value="32"/>
                         </DoubleAnimationUsingKeyFrames>
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="DeleteButton">
                         	<EasingDoubleKeyFrame KeyTime="0" Value="58"/>
                         </DoubleAnimationUsingKeyFrames>
-                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="textBox">
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="DelaySecondsText">
                         	<EasingDoubleKeyFrame KeyTime="0" Value="-26"/>
                         </DoubleAnimationUsingKeyFrames>
                         <StringAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Text)" Storyboard.TargetName="textBlock1">
@@ -193,7 +193,7 @@
                 		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DeleteButton">
                 			<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
                 		</ObjectAnimationUsingKeyFrames>
-                		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="textBox">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DelaySecondsText">
                 			<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
                 		</ObjectAnimationUsingKeyFrames>
                 		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="textBlock1">
@@ -202,13 +202,13 @@
                 		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="textBlock1">
                 			<EasingDoubleKeyFrame KeyTime="0" Value="12"/>
                 		</DoubleAnimationUsingKeyFrames>
-                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="textBox">
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="DelaySecondsText">
                 			<EasingDoubleKeyFrame KeyTime="0" Value="32"/>
                 		</DoubleAnimationUsingKeyFrames>
                 		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="DeleteButton">
                 			<EasingDoubleKeyFrame KeyTime="0" Value="58"/>
                 		</DoubleAnimationUsingKeyFrames>
-                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="textBox">
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="DelaySecondsText">
                 			<EasingDoubleKeyFrame KeyTime="0" Value="-26"/>
                 		</DoubleAnimationUsingKeyFrames>
                 		<StringAnimationUsingKeyFrames Storyboard.TargetProperty="(TextBlock.Text)" Storyboard.TargetName="textBlock1">
@@ -261,9 +261,9 @@
         </VisualStateManager.CustomVisualStateManager>
 
         <Image x:Name="AppIconImage" Source="{Binding AppIcon}" HorizontalAlignment="Left" Width="48" Margin="8,8,0,8" Height="48" VerticalAlignment="Top" />
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="65,8,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Foreground="{DynamicResource BasicText}" FontSize="32" />
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="65,8,0,0" TextWrapping="Wrap" Text="{Binding Name, Mode=OneWay}" VerticalAlignment="Top" Foreground="{DynamicResource BasicText}" FontSize="32" />
         
-            <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="65,53,0,0" TextWrapping="Wrap" Text="{Binding DelaySeconds}" VerticalAlignment="Top" Foreground="{DynamicResource BasicText}" RenderTransformOrigin="0.5,0.5" >
+            <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="65,53,0,0" TextWrapping="Wrap" Text="{Binding DelaySeconds, Mode=OneWay}" VerticalAlignment="Top" Foreground="{DynamicResource BasicText}" RenderTransformOrigin="0.5,0.5" >
             	<TextBlock.RenderTransform>
             		<TransformGroup>
             			<ScaleTransform/>
@@ -306,7 +306,7 @@
         		</TransformGroup>
         	</Button.RenderTransform>
         </Button>
-        <TextBox x:Name="textBox" Margin="136,28,103,20" TextWrapping="Wrap" Text="{Binding DelaySeconds}" Visibility="Hidden" Width="30" Height="23" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top">
+        <TextBox x:Name="DelaySecondsText" Margin="136,28,103,20" TextWrapping="Wrap" Text="{Binding DelaySeconds, Mode=OneWay}" Visibility="Hidden" Width="30" Height="23" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top">
         	<TextBox.RenderTransform>
         		<TransformGroup>
         			<ScaleTransform/>
@@ -316,7 +316,7 @@
         		</TransformGroup>
         	</TextBox.RenderTransform>
         </TextBox>
-        <TextBox x:Name="ArgumentsText" Margin="70,19,58,30" TextWrapping="Wrap" Text="{Binding Arguments}" d:LayoutOverrides="Height" Visibility="Hidden" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top">
+        <TextBox x:Name="ArgumentsText" Margin="70,19,58,30" TextWrapping="Wrap" Text="{Binding Arguments, Mode=OneWay}" d:LayoutOverrides="Height" Visibility="Hidden" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top">
         	<TextBox.RenderTransform>
         		<TransformGroup>
         			<ScaleTransform/>
@@ -337,7 +337,7 @@
         		</TransformGroup>
         	</TextBlock.RenderTransform>
         </TextBlock>
-        <TextBlock x:Name="ArgumentsViewText" HorizontalAlignment="Left" Margin="65,53,0,0" TextWrapping="Wrap" Text="{Binding Arguments}" VerticalAlignment="Top" Foreground="{DynamicResource BasicText}" RenderTransformOrigin="0.5,0.5" Opacity="0" >
+        <TextBlock x:Name="ArgumentsViewText" HorizontalAlignment="Left" Margin="65,53,0,0" TextWrapping="Wrap" Text="{Binding Arguments, Mode=OneWay}" VerticalAlignment="Top" Foreground="{DynamicResource BasicText}" RenderTransformOrigin="0.5,0.5" Opacity="0" >
         	<TextBlock.RenderTransform>
         		<TransformGroup>
         			<ScaleTransform/>
