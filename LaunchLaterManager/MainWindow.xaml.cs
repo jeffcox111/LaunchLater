@@ -58,14 +58,21 @@ namespace LaunchLaterManager
         void AppsListBox_OnAppDeleted(object sender, EventArgs e)
         {
             var app = ((AppView)sender).App;
-
-
+               
             var vm = (from v in llvm.Applications
-                      where v.App == app
-                      select v).First();
-
-            llvm.Applications.Remove(vm);
-            config.DefaultProfile.Applications.Remove(app);
+                          where v.App == app
+                          select v).FirstOrDefault();
+            if (vm == null)
+            {
+                llvm.Applications.Remove(llvm.Applications.Last());
+                config.DefaultProfile.Applications.Remove(config.DefaultProfile.Applications.Last());
+            }
+            else
+            {
+                llvm.Applications.Remove(vm);
+                config.DefaultProfile.Applications.Remove(app);
+            }
+            
             config.IsDirty = true;
         }
 

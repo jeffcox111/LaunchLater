@@ -53,8 +53,13 @@ namespace LaunchLaterManager
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "ViewingMode", true);
-            if(OnChangeHasBeenMade != null)
+            if (OnChangeHasBeenMade != null)
+            {
+                LLApplicationViewModel currentApp = (LLApplicationViewModel)this.DataContext;
+                currentApp.Arguments = ArgumentsText.Text;
+                currentApp.DelaySeconds = DelaySecondsText.Text;
                 OnChangeHasBeenMade(this, new EventArgs());
+            }
         }
 
         private void FindAppButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -111,7 +116,7 @@ namespace LaunchLaterManager
             DataContext = new LLApplicationViewModel() { App = tempApp };
 
             VisualStateManager.GoToState(this, "ViewingMode", true);
-        	// TODO: Add event handler implementation here.
+        	
         }
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
