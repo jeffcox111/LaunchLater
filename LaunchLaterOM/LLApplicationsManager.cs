@@ -9,7 +9,7 @@ namespace LaunchLaterOM
 {
     public static class LLApplicationsManager
     {
-        private static List<LLAppTimer> ApplicationTimers { get; set; }
+        public static List<LLAppTimer> ApplicationTimers { get; set; }
 
         public delegate void AppStartingEventHandler(object sender, AppStartingEventArgs e);
 

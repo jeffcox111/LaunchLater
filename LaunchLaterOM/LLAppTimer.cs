@@ -27,9 +27,9 @@ namespace LaunchLaterOM
             Started = false;
             App = app;
             AppTimer = new Timer(new TimerCallback(callback), null, App.DelaySeconds * 1000, App.DelaySeconds * 1000);
-
+            
         }
-
+       
         private void callback(object stateInfo)
         {
             if (LLUtilities.LLIsTryingToRunItself(App.FullPath))
