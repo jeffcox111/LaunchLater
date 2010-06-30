@@ -60,5 +60,12 @@ namespace LaunchLaterOM
             }
         }
 
+        public void ExecutePreemptively()
+        {
+            AppTimer.Dispose();
+            callback(true);
+
+        }
+
     }
 }
