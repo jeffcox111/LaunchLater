@@ -92,11 +92,21 @@ namespace LaunchLater_LaunchPad
             }
             else
             {
-                if (seconds > 0)
+                if (seconds > 0 && !x.Started)
                 {
-                    contextMenu.MenuItems.Add(new MenuItem(x.App.Name + " in " + getSecondsRemaining(x.App).ToString() + " seconds"));
+                    MenuItem m = new MenuItem(x.App.Name + " in " + getSecondsRemaining(x.App).ToString() + " seconds");
+                    contextMenu.MenuItems.Add(m);
+                    m.Click += new EventHandler(m_Click);
+
                 }
             }
+        }
+
+        void m_Click(object sender, EventArgs e)
+        {
+            string appName = ((MenuItem)sender).Text.Split(' ').First();
+            LLApplicationsManager.ApplicationTimers.Where(x => x.App.Name == appName).First().ExecutePreemptively();
+            contextMenu.MenuItems.Remove((MenuItem)sender);
         }
 
         private void updateContextMenu(object stateInfo)
