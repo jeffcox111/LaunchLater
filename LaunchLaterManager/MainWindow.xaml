@@ -1,0 +1,30 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:LaunchLaterManager" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="window" mc:Ignorable="d" x:Class="LaunchLaterManager.MainWindow"
+        Title="LaunchLater" Icon="settings.ico" 
+    Height="343" 
+    Width="387"
+    WindowStyle="ToolWindow" 
+    ResizeMode="CanResizeWithGrip"
+    Closing="Window_Closing">
+    <Grid x:Name="grid" Loaded="Grid_Loaded" Background="Black" Margin="0">
+    	<Grid.RowDefinitions>
+    		<RowDefinition Height="48.98"/>
+    		<RowDefinition/>
+    	</Grid.RowDefinitions>
+<!--<local:AppView x:Name="TempAppView"   />-->
+    	<Grid
+    Margin="0,0,8,-0.677">
+    		<TextBlock
+    HorizontalAlignment="Left" TextWrapping="Wrap" Text="LaunchLater" VerticalAlignment="Top" Foreground="#FFCD8B51" FontSize="37.333"/>
+    		<Button
+    x:Name="AddButton" Content="Add App" HorizontalAlignment="Right" Width="75" Margin="0,19.697,8,8" d:LayoutOverrides="Height" Click="AddButton_Click"/>
+    	</Grid>
+    	<ScrollViewer
+    MaxHeight="{Binding Height, ElementName=window}" Margin="0,0.677,0,0" Grid.Row="1" VerticalAlignment="Top">
+    		<local:AppListBox
+    x:Name="AppsListBox" VerticalAlignment="Stretch"/>
+    	</ScrollViewer>
+    </Grid>
+</Window>
