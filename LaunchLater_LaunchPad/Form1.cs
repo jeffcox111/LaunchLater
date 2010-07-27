@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using LaunchLaterOM;
+using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using LaunchLaterOM;
 using System.Threading;
-using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace LaunchLater_LaunchPad
 {
@@ -17,8 +13,8 @@ namespace LaunchLater_LaunchPad
         private NotifyIcon trayIcon;
         private System.Threading.Timer monitorTimer;
 
-        
-        private DateTime startedTime;
+
+        private bool paused = false;
         private ContextMenu contextMenu = new ContextMenu();
 
         private System.Threading.Timer contextMenuUpdateTimer;
@@ -29,9 +25,7 @@ namespace LaunchLater_LaunchPad
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-            
-                        
+        {                        
             LLApplicationsManager.Start();
             initTrayIcon();
             monitorTimer = new System.Threading.Timer(new TimerCallback(cleanUp), null, 0, 5000);
@@ -48,12 +42,26 @@ namespace LaunchLater_LaunchPad
 
             trayIcon.ShowBalloonTip(0, "LaunchLater", "Executing application schedule...", ToolTipIcon.Info);
 
-            startedTime = DateTime.Now;
+            //startedTime = DateTime.Now;
             populateContextMenu();
+
+            createPauseAndExitItems();
 
             trayIcon.ContextMenu = contextMenu;
             contextMenuUpdateTimer = new System.Threading.Timer(new TimerCallback(updateContextMenu), null, 1000, 1000);
             
+        }
+
+        private void createPauseAndExitItems()
+        {
+            MenuItem m = new MenuItem() { Text = "Exit" };
+            m.Click += new EventHandler(Exit_Click);
+            
+
+            MenuItem m2 = new MenuItem() { Text = "Pause All" };
+            m2.Click +=new EventHandler(PauseResume_Click);
+            contextMenu.MenuItems.Add(m2);
+            contextMenu.MenuItems.Add(m);
         }
 
         private void populateContextMenu()
@@ -79,22 +87,27 @@ namespace LaunchLater_LaunchPad
             }
             
             //get seconds remaining
-            double seconds = getSecondsRemaining(x.App);
+            double seconds = x.GetSecondsRemaining();
            
             //if the menu item already exists, just update it, otherwise add it
             if (menuItem != null)
             {           
                 //if there are no seconds remaining, remove it from the list, otherwise update the time.
                 if (seconds < 0)
-                      contextMenu.MenuItems.Remove(menuItem);
+                    contextMenu.MenuItems.Remove(menuItem);
                 else
-                      menuItem.Text = x.App.Name + " in " + seconds.ToString() + " seconds";
+                {
+                    string txt = "";
+                    txt = x.App.Name + " in " + seconds.ToString() + " seconds";
+                    if (paused) txt += " (Paused)";
+                    menuItem.Text = txt;
+                }
             }
             else
             {
                 if (seconds > 0 && !x.Started)
                 {
-                    MenuItem m = new MenuItem(x.App.Name + " in " + getSecondsRemaining(x.App).ToString() + " seconds");
+                    MenuItem m = new MenuItem(x.App.Name + " in " + x.GetSecondsRemaining().ToString() + " seconds");
                     contextMenu.MenuItems.Add(m);
                     m.Click += new EventHandler(m_Click);
 
@@ -102,8 +115,31 @@ namespace LaunchLater_LaunchPad
             }
         }
 
+        void Exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        void PauseResume_Click(object sender, EventArgs e)
+        {
+            if (paused)
+            {
+                LLApplicationsManager.ApplicationTimers.Where(x => x.Started == false).ToList().ForEach(x => x.Resume());
+                paused = false;
+                ((MenuItem)sender).Text = "Pause All";
+            }
+            else
+            {
+                LLApplicationsManager.ApplicationTimers.Where(x => x.Started == false).ToList().ForEach(x => x.Pause());
+                paused = true;
+                ((MenuItem)sender).Text = "Resume All";
+            }
+
+        }
+
         void m_Click(object sender, EventArgs e)
         {
+            
             string appName = ((MenuItem)sender).Text.Split(' ').First();
             LLApplicationsManager.ApplicationTimers.Where(x => x.App.Name == appName).First().ExecutePreemptively();
             contextMenu.MenuItems.Remove((MenuItem)sender);
@@ -112,15 +148,10 @@ namespace LaunchLater_LaunchPad
         private void updateContextMenu(object stateInfo)
         {
             populateContextMenu();
+            
         }
 
-        private double getSecondsRemaining(LLApplication app)
-        {
-            TimeSpan timeSinceStarted = DateTime.Now - startedTime;
-            double secondsPassed = timeSinceStarted.TotalSeconds;
-
-            return (int)(app.DelaySeconds - secondsPassed);
-        }
+        
 
         void LLApplicationsManager_AppStarting(object sender, AppStartingEventArgs e)
         {

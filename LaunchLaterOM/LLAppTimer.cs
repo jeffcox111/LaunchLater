@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Diagnostics;
+using System.Threading;
 
 namespace LaunchLaterOM
 {
@@ -17,6 +14,11 @@ namespace LaunchLaterOM
         public Timer AppTimer { get; private set; }
         public bool Started { get; private set; }
 
+        private bool paused = false;
+        private int resumeSeconds = 0;
+
+        private DateTime startedTime = DateTime.Now;
+
         public LLAppTimer() { }
 
         public LLAppTimer(LLApplication app)
@@ -27,9 +29,49 @@ namespace LaunchLaterOM
             Started = false;
             App = app;
             AppTimer = new Timer(new TimerCallback(callback), null, App.DelaySeconds * 1000, App.DelaySeconds * 1000);
-            
+            startedTime = DateTime.Now;
+
         }
-       
+
+        public int GetSecondsRemaining()
+        {
+            if (paused)
+                return resumeSeconds;
+        
+            TimeSpan timeSinceStarted = DateTime.Now - startedTime;
+            double secondsPassed = timeSinceStarted.TotalSeconds;
+
+            return (int)(this.App.DelaySeconds - secondsPassed);
+        }
+
+        public void Pause()
+        {
+            try
+            {
+                resumeSeconds = this.GetSecondsRemaining();
+                paused = true; 
+
+                AppTimer.Dispose();
+                AppTimer = null;
+            }
+            catch 
+            {
+            }
+
+        }
+
+        public void Resume()
+        {
+            if (paused)
+            {
+                App.DelaySeconds = resumeSeconds;
+                AppTimer = new Timer(new TimerCallback(callback), null, App.DelaySeconds * 1000, App.DelaySeconds * 1000);
+                startedTime = DateTime.Now;
+                paused = false;
+                
+            }
+        }
+
         private void callback(object stateInfo)
         {
             if (LLUtilities.LLIsTryingToRunItself(App.FullPath))
