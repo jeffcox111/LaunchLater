@@ -117,6 +117,7 @@ namespace LaunchLater_LaunchPad
 
         void Exit_Click(object sender, EventArgs e)
         {
+            trayIcon.Dispose();
             Application.Exit();
         }
 
