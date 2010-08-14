@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:LaunchLaterManager" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="window" mc:Ignorable="d" x:Class="LaunchLaterManager.MainWindow"
         Title="LaunchLater" Icon="settings.ico" 
     Height="343" 
-    Width="387"
+    Width="450"
     WindowStyle="ToolWindow" 
     ResizeMode="CanResizeWithGrip"
     Closing="Window_Closing">
@@ -18,7 +18,9 @@
     Margin="0,0,8,-0.677">
     		<TextBlock
     HorizontalAlignment="Left" TextWrapping="Wrap" Text="LaunchLater" VerticalAlignment="Top" Foreground="#FFCD8B51" FontSize="37.333"/>
-    		<Button
+            <Button
+    x:Name="ImportStartupItemsButton" Content="Import Startup Items" HorizontalAlignment="Center" Width="120" Margin="208,20,92,8" d:LayoutOverrides="Height" Click="ImportStartupItemsButton_Click"/>
+            <Button
     x:Name="AddButton" Content="Add App" HorizontalAlignment="Right" Width="75" Margin="0,19.697,8,8" d:LayoutOverrides="Height" Click="AddButton_Click"/>
     	</Grid>
     	<ScrollViewer
