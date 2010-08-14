@@ -176,11 +176,20 @@ namespace LaunchLaterManager
                             config.DefaultProfile.Applications.Add(newApp);
                             var appVM = new LLApplicationViewModel() { App = newApp };
                             llvm.Applications.Add(appVM);
-                            regKey.DeleteValue(reg.Key);
+                            DeleteRegValue(regKey, runKey, reg.Key);
                             config.IsDirty = true;
                         }                        
                     }
                 }
+            }
+        }
+
+        private void DeleteRegValue(RegistryKey regKey, string registryPath, string valueKey)
+        {
+            var registeryKey = regKey.OpenSubKey(registryPath, true);
+            if (registeryKey != null)
+            {
+                registeryKey.DeleteValue(valueKey, false);
             }
         }
 
