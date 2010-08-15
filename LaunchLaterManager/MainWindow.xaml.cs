@@ -153,10 +153,10 @@ namespace LaunchLaterManager
                             })
                             .Select(arg => arg.Trim().Replace("\"", ""))
                             .Where(arg => !string.IsNullOrEmpty(arg)).ToList();
-                            filePath = pathValues.First();
+                            filePath = pathValues.FirstOrDefault();
 
                             // either we have a parsing error or the file doesn't exist, just skip it and move along
-                            if (!File.Exists(filePath))
+                            if (filePath == null || !File.Exists(filePath))
                                 continue;
 
                             foreach (var args in pathValues)
