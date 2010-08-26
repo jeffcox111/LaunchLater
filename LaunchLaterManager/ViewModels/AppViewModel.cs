@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace LaunchLaterManager.ViewModels
 {
-    public class LLApplicationViewModel : INotifyPropertyChanged
+    public class AppViewModel : INotifyPropertyChanged
     {
 
         private LLApplication app;

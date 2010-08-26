@@ -1,6 +1,6 @@
 ﻿namespace LaunchLater_LaunchPad
 {
-    partial class Form1
+    partial class LaunchPadMainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // LaunchPadMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

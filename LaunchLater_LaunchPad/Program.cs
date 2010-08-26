@@ -15,7 +15,7 @@ namespace LaunchLater_LaunchPad
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new LaunchPadMainForm());
         }
     }
 }

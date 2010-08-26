@@ -1,25 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace LaunchLaterManager
 {
     /// <summary>
-    /// Interaction logic for AppListBox.xaml
+    /// Interaction logic for AppsListView.xaml
     /// </summary>
-    public partial class AppListBox : UserControl
+    public partial class AppsListView : UserControl
     {
-        public AppListBox()
+        public AppsListView()
         {
             InitializeComponent();
         }
