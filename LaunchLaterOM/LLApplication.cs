@@ -8,6 +8,7 @@ namespace LaunchLaterOM
         public string FullPath { get; set; }
         public int DelaySeconds { get; set; }
         public string Arguments { get; set; }
+        public bool Enabled { get; set; }
 
         public LLApplication() { }
 
@@ -17,6 +18,7 @@ namespace LaunchLaterOM
             FullPath = app.FullPath;
             DelaySeconds = app.DelaySeconds;
             Arguments = app.Arguments;
+            Enabled = app.Enabled;
         }
         public override string ToString()
         {
@@ -30,6 +32,7 @@ namespace LaunchLaterOM
             xml.Add(new XAttribute("FullPath", FullPath));
             xml.Add(new XAttribute("DelaySeconds", DelaySeconds.ToString()));
             xml.Add(new XAttribute("Arguments", Arguments));
+            xml.Add(new XAttribute("Enabled", Enabled.ToString()));
             return xml;
         }
 
