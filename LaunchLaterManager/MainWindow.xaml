@@ -27,7 +27,7 @@
     	</Grid>
     	<ScrollViewer
     MaxHeight="{Binding Height, ElementName=window}" Margin="0,0.677,0,0" Grid.Row="1" VerticalAlignment="Top">
-    		<local:AppListBox
+    		<local:AppsListView
     x:Name="AppsListBox" VerticalAlignment="Stretch"/>
     	</ScrollViewer>
     </Grid>

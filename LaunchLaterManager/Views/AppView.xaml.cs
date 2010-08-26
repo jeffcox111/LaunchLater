@@ -30,14 +30,14 @@ namespace LaunchLaterManager
         private void EditButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "EditingMode", true);
-            tempApp = new LLApplication(((LLApplicationViewModel)DataContext).App);
+            tempApp = new LLApplication(((AppViewModel)DataContext).App);
         }
 
         public LLApplication App
         {
             get
             {
-                return ((LLApplicationViewModel)DataContext).App;
+                return ((AppViewModel)DataContext).App;
             }
             private set{}
         }
@@ -46,7 +46,7 @@ namespace LaunchLaterManager
             VisualStateManager.GoToState(this, "ViewingMode", true);
             if (OnChangeHasBeenMade != null)
             {
-                LLApplicationViewModel currentApp = (LLApplicationViewModel)this.DataContext;
+                AppViewModel currentApp = (AppViewModel)this.DataContext;
                 currentApp.Arguments = ArgumentsText.Text;
                 currentApp.DelaySeconds = DelaySecondsText.Text;
                 currentApp.Enabled = EnabledCheckBox.IsChecked ?? true;
@@ -69,7 +69,7 @@ namespace LaunchLaterManager
                     return;
                 }
 
-                LLApplicationViewModel currentApp = (LLApplicationViewModel)this.DataContext;
+                AppViewModel currentApp = (AppViewModel)this.DataContext;
                 currentApp.Name = ofd.SafeFileName.Remove(ofd.SafeFileName.Length - 4, 4);
                 currentApp.FullPath = ofd.FileName;
 
@@ -105,7 +105,7 @@ namespace LaunchLaterManager
 
         private void CancelButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            DataContext = new LLApplicationViewModel() { App = tempApp };
+            DataContext = new AppViewModel() { App = tempApp };
 
             VisualStateManager.GoToState(this, "ViewingMode", true);
         	

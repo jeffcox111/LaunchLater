@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace LaunchLater_LaunchPad
 {
-    public partial class Form1 : Form
+    public partial class LaunchPadMainForm : Form
     {
         private NotifyIcon trayIcon;
         private System.Threading.Timer monitorTimer;
@@ -19,7 +19,7 @@ namespace LaunchLater_LaunchPad
 
         private System.Threading.Timer contextMenuUpdateTimer;
 
-        public Form1()
+        public LaunchPadMainForm()
         {
             InitializeComponent();
         }
