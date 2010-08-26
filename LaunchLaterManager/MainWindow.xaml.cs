@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using LaunchLaterManager.ViewModels;
-using System.Collections.ObjectModel;
+﻿using LaunchLaterManager.ViewModels;
 using LaunchLaterOM;
 using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Windows;
 
 namespace LaunchLaterManager
 {
@@ -27,9 +18,8 @@ namespace LaunchLaterManager
 
         private static LLConfiguration config;
 
+        private AppsListViewModel appsListVM;
 
-
-        LLApplicationsListViewModel llvm;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,21 +30,21 @@ namespace LaunchLaterManager
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
 
-            llvm = new LLApplicationsListViewModel();
+            appsListVM = new AppsListViewModel();
 
             config = new LLConfiguration("LaunchLaterApps.config");
 
             var apps = (from a in config.DefaultProfile.Applications
-                        select new LLApplicationViewModel { App = a }).ToList();
+                        select new AppViewModel { App = a }).ToList();
 
-            ObservableCollection<LLApplicationViewModel> appViewModels = new ObservableCollection<LLApplicationViewModel>();
+            ObservableCollection<AppViewModel> appViewModels = new ObservableCollection<AppViewModel>();
             apps.ForEach(x => appViewModels.Add(x));
 
-            llvm.Applications = appViewModels;
+            appsListVM.Applications = appViewModels;
 
-            AppsListBox.DataContext = llvm;
-            AppsListBox.OnChangeHasBeenMade += new AppListBox.ChangeHasBeenMadeHandler(AppsListBox_OnChangeHasBeenMade);
-            AppsListBox.OnAppDeleted += new AppListBox.DeleteAppHandler(AppsListBox_OnAppDeleted);
+            AppsListBox.DataContext = appsListVM;
+            AppsListBox.OnChangeHasBeenMade += new AppsListView.ChangeHasBeenMadeHandler(AppsListBox_OnChangeHasBeenMade);
+            AppsListBox.OnAppDeleted += new AppsListView.DeleteAppHandler(AppsListBox_OnAppDeleted);
 
         }
 
@@ -62,17 +52,17 @@ namespace LaunchLaterManager
         {
             var app = ((AppView)sender).App;
 
-            var vm = (from v in llvm.Applications
+            var vm = (from v in appsListVM.Applications
                       where v.App == app
                       select v).FirstOrDefault();
             if (vm == null)
             {
-                llvm.Applications.Remove(llvm.Applications.Last());
+                appsListVM.Applications.Remove(appsListVM.Applications.Last());
                 config.DefaultProfile.Applications.Remove(config.DefaultProfile.Applications.Last());
             }
             else
             {
-                llvm.Applications.Remove(vm);
+                appsListVM.Applications.Remove(vm);
                 config.DefaultProfile.Applications.Remove(app);
             }
 
@@ -111,8 +101,8 @@ namespace LaunchLaterManager
         {
             LLApplication newApp = new LLApplication() { Arguments = "", DelaySeconds = 0, FullPath = "", Name = "" };
             config.DefaultProfile.Applications.Add(newApp);
-            LLApplicationViewModel appVM = new LLApplicationViewModel() { App = newApp };
-            llvm.Applications.Add(appVM);
+            AppViewModel appVM = new AppViewModel() { App = newApp };
+            appsListVM.Applications.Add(appVM);
 
         }
 
@@ -174,8 +164,8 @@ namespace LaunchLaterManager
                         if (!config.DefaultProfile.Applications.Where(x => x.FullPath == newApp.FullPath && x.Arguments == newApp.Arguments && x.DelaySeconds == newApp.DelaySeconds).Any())
                         {
                             config.DefaultProfile.Applications.Add(newApp);
-                            var appVM = new LLApplicationViewModel() { App = newApp };
-                            llvm.Applications.Add(appVM);
+                            var appVM = new AppViewModel() { App = newApp };
+                            appsListVM.Applications.Add(appVM);
                             DeleteRegValue(regKey, runKey, reg.Key);
                             config.IsDirty = true;
                         }                        
@@ -218,8 +208,8 @@ namespace LaunchLaterManager
                         if (!config.DefaultProfile.Applications.Where(x => x.FullPath == newApp.FullPath && x.Arguments == newApp.Arguments && x.DelaySeconds == newApp.DelaySeconds).Any())
                         {
                             config.DefaultProfile.Applications.Add(newApp);
-                            var appVM = new LLApplicationViewModel() { App = newApp };
-                            llvm.Applications.Add(appVM);
+                            var appVM = new AppViewModel() { App = newApp };
+                            appsListVM.Applications.Add(appVM);
                             File.Delete(file);
                             config.IsDirty = true;
                         }

@@ -6,9 +6,9 @@ using System.Collections.ObjectModel;
 
 namespace LaunchLaterManager.ViewModels
 {
-    public class LLApplicationsListViewModel
+    public class AppsListViewModel
     {
-        public ObservableCollection<LLApplicationViewModel> Applications { get; set; }
+        public ObservableCollection<AppViewModel> Applications { get; set; }
 
     }
 }
