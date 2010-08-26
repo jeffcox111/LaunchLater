@@ -71,7 +71,8 @@ namespace LaunchLaterOM.Configuration
                                FullPath = a.Attribute("FullPath").Value,
                                Name = a.Attribute("Name").Value,
                                DelaySeconds = int.Parse(a.Attribute("DelaySeconds").Value),
-                               Arguments = a.Attribute("Arguments").Value
+                               Arguments = a.Attribute("Arguments").Value,
+                               Enabled = getSafeBoolean(a, "Enabled")
                            };
 
                 return apps.ToList();
@@ -80,6 +81,19 @@ namespace LaunchLaterOM.Configuration
             {
                 EventLog.WriteEntry("LaunchLater", "Error loading configuration... " + ex.ToString());
                 throw new LLConfigurationException();
+            }
+        }
+
+        private static bool getSafeBoolean(XElement a, string p)
+        {
+            try
+            {
+                bool result = bool.Parse(a.Attribute(p).Value);
+                return result;
+            }
+            catch
+            {
+                return true;
             }
         }
 
