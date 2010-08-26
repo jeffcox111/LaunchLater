@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Diagnostics;
+using System.Linq;
 
 namespace LaunchLaterOM
 {
@@ -23,7 +21,7 @@ namespace LaunchLaterOM
 
             LLConfiguration config = new LLConfiguration("LaunchLaterApps.config");
 
-            var apps = config.DefaultProfile.Applications;
+            var apps = config.DefaultProfile.Applications.Where(x => x.Enabled==true).ToList();
             apps.ForEach(x => ApplicationTimers.Add(new LLAppTimer(x)));
             ApplicationTimers.ForEach(x => x.AppStarting +=new LLAppTimer.AppStartingEventHandler(x_AppStarting));
         }

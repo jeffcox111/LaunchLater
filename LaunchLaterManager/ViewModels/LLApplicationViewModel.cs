@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using LaunchLaterOM;
-using System.Drawing;
-using System.Windows.Media.Imaging;
-using System.IO;
-using System.Drawing.Imaging;
+﻿using LaunchLaterOM;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace LaunchLaterManager.ViewModels
 {
@@ -71,6 +66,18 @@ namespace LaunchLaterManager.ViewModels
             }
         }
 
+        public bool Enabled
+        {
+            get
+            {
+                return app.Enabled;
+            }
+            set
+            {
+                app.Enabled = value;
+                NotifyPropertyChanged("Enabled");
+            }
+        }
        
         public BitmapImage AppIcon
         {
