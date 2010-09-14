@@ -89,6 +89,7 @@ namespace LaunchLaterOM
                 p.StartInfo.Arguments = App.Arguments;
 
                 p.Start();
+               
             }
             catch (Exception ex)
             {
@@ -98,13 +99,25 @@ namespace LaunchLaterOM
             finally
             {
                 Started = true;
+                killTimer();
+
+            }
+        }
+
+        private void killTimer()
+        {
+            try
+            {
                 AppTimer.Dispose();
+            }
+            catch
+            { //swallow
             }
         }
 
         public void ExecutePreemptively()
         {
-            AppTimer.Dispose();
+            killTimer();
             callback(true);
 
         }
