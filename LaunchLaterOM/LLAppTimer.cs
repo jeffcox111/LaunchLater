@@ -80,15 +80,23 @@ namespace LaunchLaterOM
                 return;
             }
 
+            if (!System.IO.File.Exists(App.FullPath))
+            {
+                Started = true; //let the launcher think it ran, even though the executable doesn't exist. This effectively swallows the error.
+                return;
+            }
+
             AppStarting(this, new AppStartingEventArgs { Name = App.Name });
 
             try
             {
                 Process p = new Process();
+                
                 p.StartInfo.FileName = App.FullPath;
                 p.StartInfo.Arguments = App.Arguments;
 
                 p.Start();
+                
                
             }
             catch (Exception ex)

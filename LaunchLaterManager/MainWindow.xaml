@@ -19,7 +19,7 @@
     		<TextBlock
     HorizontalAlignment="Left" TextWrapping="Wrap" Text="LaunchLater" VerticalAlignment="Top" Foreground="#FFCD8B51" FontSize="37.333"/>
     		<Grid Margin="211,8,8,0" d:LayoutOverrides="Width" HorizontalAlignment="Right" >
-    			<Button
+    			<Button Visibility="Hidden"
     				x:Name="ImportStartupItemsButton" Content="Import Startup Items" HorizontalAlignment="Right" Margin="0,0,82.976,8" Click="ImportStartupItemsButton_Click" VerticalAlignment="Bottom"/>
     			<Button
     				x:Name="AddButton" Content="Add App" Width="75" d:LayoutOverrides="HorizontalAlignment, Height" Click="AddButton_Click" HorizontalAlignment="Right" Margin="0,11.697,0,8"/>

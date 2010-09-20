@@ -146,7 +146,7 @@ namespace LaunchLater_LaunchPad
             string appName = getParent(sender).Text.Split(' ').First();
             LLAppTimer timer = LLApplicationsManager.ApplicationTimers.Where(x => x.App.Name == appName).First();
             LLApplicationsManager.ApplicationTimers.Remove(timer);
-            timer.Pause();
+            timer.Pause();  //By pausing, the timer is disposed. Unless Resume() is called, this is effectively a "cancel" operation.
             contextMenu.MenuItems.Remove(getParent(sender));
         }
 
