@@ -250,6 +250,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0FE8DD889F37DF1B9CB42133B1BCA703"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:LL_LaunchPad, Version=1.2.99.1527, Culture=neutral, processorArchitecture=x86"
+                "ScatterAssemblies"
+                {
+                    "_0FE8DD889F37DF1B9CB42133B1BCA703"
+                    {
+                    "Name" = "8:LL_LaunchPad.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:LL_LaunchPad.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_38E6B70CF10F44999E3DB04FBB794C0C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1C55E0E45E6D927505912CA620B782C3"
             {
             "AssemblyRegister" = "3:1"
@@ -407,7 +438,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:LaunchLaterOM, Version=1.0.30.2214, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:LaunchLaterOM, Version=1.0.88.1527, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_EC30A4BC2C1932A148CF4912BCDEA5DD"
@@ -512,15 +543,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:LaunchLater"
-        "ProductCode" = "8:{6D4005AE-6FCF-4062-9E88-A458B29186A8}"
-        "PackageCode" = "8:{5CA362CE-F189-4BEE-AF4A-2BD1144A3CDF}"
+        "ProductCode" = "8:{F61693BB-4720-462C-ADA0-D5DA24A1F208}"
+        "PackageCode" = "8:{FAC4D829-2AEB-44D1-9C43-8F0AE717D994}"
         "UpgradeCode" = "8:{CE55214F-997F-4645-81A1-F6D27F9B89AB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.3"
+        "ProductVersion" = "8:1.4"
         "Manufacturer" = "8:LaunchLater"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://launchlater.codeplex.com"
