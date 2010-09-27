@@ -30,21 +30,58 @@ namespace LaunchLaterManager
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
 
+            InitLaunchLaterUI();
+
+        }
+
+        private void InitLaunchLaterUI()
+        {
+            InitSortingOptions();
+
             appsListVM = new AppsListViewModel();
 
             config = new LLConfiguration("LaunchLaterApps.config");
 
             var apps = (from a in config.DefaultProfile.Applications
-                        select new AppViewModel { App = a }).ToList();
+                        select new AppViewModel{ App = a }).ToList();
 
             ObservableCollection<AppViewModel> appViewModels = new ObservableCollection<AppViewModel>();
-            apps.ForEach(x => appViewModels.Add(x));
 
+            apps.ForEach(x => appViewModels.Add(x));
             appsListVM.Applications = appViewModels;
+            appsListVM.SortApps(AppSortingStyle.Name);
 
             AppsListBox.DataContext = appsListVM;
             AppsListBox.OnChangeHasBeenMade += new AppsListView.ChangeHasBeenMadeHandler(AppsListBox_OnChangeHasBeenMade);
             AppsListBox.OnAppDeleted += new AppsListView.DeleteAppHandler(AppsListBox_OnAppDeleted);
+        }
+
+        private void InitSortingOptions()
+        {
+            cmbSorting.Items.Add("Sort by Name");
+            cmbSorting.Items.Add("Sort by Delay");
+            cmbSorting.Items.Add("Sort by Enabled");
+            cmbSorting.SelectedItem = "Sort by Name";
+
+            cmbSorting.SelectionChanged += new System.Windows.Controls.SelectionChangedEventHandler(cmbSorting_SelectionChanged);
+        }
+
+        void cmbSorting_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+            AppSortingStyle style ;
+
+            switch (cmbSorting.SelectedItem.ToString())
+            {
+                case "Sort by Delay": style = AppSortingStyle.Timeline; break;
+                case "Sort By Enabled": style = AppSortingStyle.Enabled; break;
+                default: style = AppSortingStyle.Name; break;
+            }
+
+            AppsListViewModel vm = (AppsListViewModel)AppsListBox.DataContext;
+            vm.SortApps(style);
+            AppsListBox.DataContext = null;
+            AppsListBox.DataContext = vm;
 
         }
 

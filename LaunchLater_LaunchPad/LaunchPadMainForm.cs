@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using LaunchLaterOM.Configuration;
 
 namespace LaunchLater_LaunchPad
 {
@@ -25,11 +26,23 @@ namespace LaunchLater_LaunchPad
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {                        
+        {
             LLApplicationsManager.Start();
             initTrayIcon();
+
+            checkForUpdates();
+
             monitorTimer = new System.Threading.Timer(new TimerCallback(cleanUp), null, 0, 5000);
                         
+        }
+
+        private void checkForUpdates()
+        {
+            string txt = Application.ProductVersion.Substring(0, 3);
+            double currentVersion = double.Parse(txt);
+            if (Updater.UpdateExists(currentVersion))
+                trayIcon.ShowBalloonTip(0, "An update is available!", @"Go to http://launchlater.codeplex.com or start LaunchLater Configuration to get the update!", ToolTipIcon.Info);
+
         }
 
         private void initTrayIcon()
@@ -101,7 +114,7 @@ namespace LaunchLater_LaunchPad
                     {
                         
                         string txt = "";
-                        txt = x.App.Name + " in " + seconds.ToString() + " seconds";
+                        txt = x.App.Name + " in " + TimeSpan.FromSeconds(seconds).ToString();
                         if (menuItem.Tag == "Paused") txt += " (Paused)";
                         menuItem.Text = txt;
                     }
@@ -110,7 +123,7 @@ namespace LaunchLater_LaunchPad
                 {
                     if (seconds > 0 && !x.Started)
                     {
-                        MenuItem m = new MenuItem(x.App.Name + " in " + x.GetSecondsRemaining().ToString() + " seconds");
+                        MenuItem m = new MenuItem(x.App.Name + " in " + TimeSpan.FromSeconds(x.GetSecondsRemaining()).ToString());
                        
                         MenuItem subPause = new MenuItem("Pause/Resume");
                         MenuItem subExecute = new MenuItem("Execute");
