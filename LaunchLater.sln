@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchLater_LaunchPad", "La
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LaunchLaterSetup", "LaunchLaterSetup\LaunchLaterSetup.vdproj", "{5A2186AC-A984-4601-849D-DD5F78195189}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqToFeed", "LinqToFeed\LinqToFeed.csproj", "{3DCD059D-33E5-4C06-A38E-14831F7E0C3E}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = LaunchLater.vsmdi
@@ -77,6 +79,16 @@ Global
 		{5A2186AC-A984-4601-849D-DD5F78195189}.Release|Any CPU.ActiveCfg = Release
 		{5A2186AC-A984-4601-849D-DD5F78195189}.Release|Mixed Platforms.ActiveCfg = Release
 		{5A2186AC-A984-4601-849D-DD5F78195189}.Release|x86.ActiveCfg = Release
+		{3DCD059D-33E5-4C06-A38E-14831F7E0C3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DCD059D-33E5-4C06-A38E-14831F7E0C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DCD059D-33E5-4C06-A38E-14831F7E0C3E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3DCD059D-33E5-4C06-A38E-14831F7E0C3E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3DCD059D-33E5-4C06-A38E-14831F7E0C3E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3DCD059D-33E5-4C06-A38E-14831F7E0C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DCD059D-33E5-4C06-A38E-14831F7E0C3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DCD059D-33E5-4C06-A38E-14831F7E0C3E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3DCD059D-33E5-4C06-A38E-14831F7E0C3E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3DCD059D-33E5-4C06-A38E-14831F7E0C3E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
