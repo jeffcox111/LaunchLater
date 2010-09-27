@@ -1,29 +1,31 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:LaunchLaterManager" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="window" mc:Ignorable="d" x:Class="LaunchLaterManager.MainWindow"
+        xmlns:local="clr-namespace:LaunchLaterManager" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Telerik_Windows_QuickStart="clr-namespace:Telerik.Windows.QuickStart;assembly=Telerik.Windows.QuickStart" x:Name="window" mc:Ignorable="d" x:Class="LaunchLaterManager.MainWindow"
         Title="LaunchLater" Icon="settings.ico" 
-    Height="343" 
-    Width="450"
+    Height="400" 
+    Width="600"
     WindowStyle="ToolWindow" 
     ResizeMode="CanResizeWithGrip"
     Closing="Window_Closing">
     <Grid x:Name="grid" Loaded="Grid_Loaded" Background="Black" Margin="0">
     	<Grid.RowDefinitions>
-    		<RowDefinition Height="48.98"/>
+    		<RowDefinition Height="64"/>
     		<RowDefinition/>
     	</Grid.RowDefinitions>
 <!--<local:AppView x:Name="TempAppView"   />-->
     	<Grid
-    Margin="0,0,8,-0.677">
+    Margin="0,0,8,-25.677">
     		<TextBlock
     HorizontalAlignment="Left" TextWrapping="Wrap" Text="LaunchLater" VerticalAlignment="Top" Foreground="#FFCD8B51" FontSize="37.333"/>
-    		<Grid Margin="211,8,8,0" d:LayoutOverrides="Width" HorizontalAlignment="Right" >
+    		<Grid Margin="251.001,25,8,0" Height="56.677" VerticalAlignment="Top" >
     			<Button Visibility="Hidden"
     				x:Name="ImportStartupItemsButton" Content="Import Startup Items" HorizontalAlignment="Right" Margin="0,0,82.976,8" Click="ImportStartupItemsButton_Click" VerticalAlignment="Bottom"/>
+    			<ComboBox x:Name="cmbSorting" Margin="105.999,11.697,91,23.02" d:LayoutOverrides="Height"/>
     			<Button
-    				x:Name="AddButton" Content="Add App" Width="75" d:LayoutOverrides="HorizontalAlignment, Height" Click="AddButton_Click" HorizontalAlignment="Right" Margin="0,11.697,0,8"/>
+    				x:Name="AddButton" Content="Add App" Width="75" d:LayoutOverrides="HorizontalAlignment" Click="AddButton_Click" HorizontalAlignment="Right" Margin="0,11.697,0,0" VerticalAlignment="Top"/>
     		</Grid>
+    		<TextBlock x:Name="updateLink" HorizontalAlignment="Right" Margin="0,8,8,0" TextWrapping="Wrap" Text="Click here to download the new update!" VerticalAlignment="Top" Width="213.999" Height="17" Foreground="#FF4EFBF7" Visibility="Hidden"/>
     	</Grid>
     	<ScrollViewer
     MaxHeight="{Binding Height, ElementName=window}" Margin="0,0.677,0,0" Grid.Row="1" VerticalAlignment="Top">
