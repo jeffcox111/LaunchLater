@@ -25,7 +25,7 @@
     			<Button
     				x:Name="AddButton" Content="Add App" Width="75" d:LayoutOverrides="HorizontalAlignment" Click="AddButton_Click" HorizontalAlignment="Right" Margin="0,11.697,0,0" VerticalAlignment="Top"/>
     		</Grid>
-    		<TextBlock x:Name="updateLink" HorizontalAlignment="Right" Margin="0,8,8,0" TextWrapping="Wrap" Text="Click here to download the new update!" VerticalAlignment="Top" Width="213.999" Height="17" Foreground="#FF4EFBF7" Visibility="Hidden"/>
+    		<Button x:Name="cmdUpdate" Content="Click here to download the new version!" HorizontalAlignment="Right" Height="17" Margin="0,8,8,0" VerticalAlignment="Top" Width="172" FontSize="9.333" Foreground="#FF0B2AA7" Click="Button_Click" Visibility="Hidden"/>
     	</Grid>
     	<ScrollViewer
     MaxHeight="{Binding Height, ElementName=window}" Margin="0,0.677,0,0" Grid.Row="1" VerticalAlignment="Top">
