@@ -24,7 +24,7 @@ namespace LaunchLaterManager
         public AppView()
 		{
 			this.InitializeComponent();
-            VisualStateManager.GoToState(this, "ViewingMode", true);
+           
 		}
 
         private void EditButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -43,7 +43,8 @@ namespace LaunchLaterManager
         }
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "ViewingMode", true);
+            GoToViewingMode();
+
             if (OnChangeHasBeenMade != null)
             {
                 AppViewModel currentApp = (AppViewModel)this.DataContext;
@@ -52,6 +53,8 @@ namespace LaunchLaterManager
                 currentApp.Enabled = EnabledCheckBox.IsChecked ?? true;
                 OnChangeHasBeenMade(this, new EventArgs());
             }
+
+            GoToViewingMode();
         }
 
         private void FindAppButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -107,8 +110,17 @@ namespace LaunchLaterManager
         {
             DataContext = new AppViewModel() { App = tempApp };
 
-            VisualStateManager.GoToState(this, "ViewingMode", true);
+            GoToViewingMode();
         	
+        }
+
+        private void GoToViewingMode()
+        {
+           
+            if (App.Enabled == true)
+                VisualStateManager.GoToState(this, "ViewingMode", true);
+            else
+                VisualStateManager.GoToState(this, "ViewingDisabledMode", true);
         }
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
@@ -119,7 +131,7 @@ namespace LaunchLaterManager
                 FindAppButton_Click(this, new RoutedEventArgs());
 			}
         	IsNewAppConfig = false;
-			
+            GoToViewingMode();
         }
 
        

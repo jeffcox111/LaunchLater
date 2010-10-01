@@ -7,6 +7,9 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using LaunchLaterOM.Configuration;
+using System.Threading;
+using System.Diagnostics;
 
 namespace LaunchLaterManager
 {
@@ -54,8 +57,24 @@ namespace LaunchLaterManager
             AppsListBox.DataContext = appsListVM;
             AppsListBox.OnChangeHasBeenMade += new AppsListView.ChangeHasBeenMadeHandler(AppsListBox_OnChangeHasBeenMade);
             AppsListBox.OnAppDeleted += new AppsListView.DeleteAppHandler(AppsListBox_OnAppDeleted);
+
+            checkForUpdates();
         }
 
+        private void checkForUpdates()
+        {
+            try
+            {
+                string txt = System.Windows.Forms.Application.ProductVersion.Substring(0, 3);
+                double currentVersion = double.Parse(txt);
+                if (Updater.UpdateExists(currentVersion))
+                    cmdUpdate.Visibility = System.Windows.Visibility.Visible;
+            }
+            catch
+            { //swallow 
+            }
+
+        }
         private void InitSortingOptions()
         {
             cmbSorting.Items.Add("Sort by Name");
@@ -74,7 +93,7 @@ namespace LaunchLaterManager
             switch (cmbSorting.SelectedItem.ToString())
             {
                 case "Sort by Delay": style = AppSortingStyle.Timeline; break;
-                case "Sort By Enabled": style = AppSortingStyle.Enabled; break;
+                case "Sort by Enabled": style = AppSortingStyle.Enabled; break;
                 default: style = AppSortingStyle.Name; break;
             }
 
@@ -276,6 +295,11 @@ namespace LaunchLaterManager
                     yield return new KeyValuePair<string, string>(registryKey, registeryKey.GetValue(registryKey) as string);
                 }
             }
+        }
+
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("http://launchlater.codeplex.com"));
         }
 
     }
