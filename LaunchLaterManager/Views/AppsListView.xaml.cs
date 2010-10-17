@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
+using System.Collections.Generic;
 
 namespace LaunchLaterManager
 {
@@ -28,5 +29,12 @@ namespace LaunchLaterManager
         {
             OnAppDeleted(sender, new EventArgs());
         }
+
+        private void AppView_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ((AppView)sender).GoToViewingMode();
+        }
+
+           
     }
 }

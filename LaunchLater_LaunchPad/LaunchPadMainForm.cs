@@ -30,7 +30,8 @@ namespace LaunchLater_LaunchPad
             LLApplicationsManager.Start();
             initTrayIcon();
 
-            checkForUpdates();
+            Thread updateThread = new Thread(new ThreadStart(checkForUpdates));
+            updateThread.Start();
 
             monitorTimer = new System.Threading.Timer(new TimerCallback(cleanUp), null, 0, 5000);
                         

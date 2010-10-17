@@ -13,7 +13,7 @@
         
         <DataTemplate x:Key="ApplicationsTemplate">
             
-                <local:AppView OnChangeHasBeenMade="AppView_OnChangeHasBeenMade" OnAppDeleted="AppView_OnAppDeleted"></local:AppView>
+                <local:AppView  Loaded="AppView_Loaded"  OnChangeHasBeenMade="AppView_OnChangeHasBeenMade" OnAppDeleted="AppView_OnAppDeleted"></local:AppView>
 
             
         </DataTemplate>
