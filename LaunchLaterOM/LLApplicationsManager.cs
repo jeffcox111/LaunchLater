@@ -21,7 +21,10 @@ namespace LaunchLaterOM
 
             LLConfiguration config = new LLConfiguration("LaunchLaterApps.config");
 
-            var apps = config.DefaultProfile.Applications.Where(x => x.Enabled==true).ToList();
+            var apps = config.DefaultProfile.Applications.Where(x => x.Enabled == true).ToList();
+            apps = (from a in apps
+                   orderby a.DelaySeconds ascending
+                   select a).ToList();
             apps.ForEach(x => ApplicationTimers.Add(new LLAppTimer(x)));
             ApplicationTimers.ForEach(x => x.AppStarting +=new LLAppTimer.AppStartingEventHandler(x_AppStarting));
         }

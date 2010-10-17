@@ -58,23 +58,34 @@ namespace LaunchLaterManager
             AppsListBox.OnChangeHasBeenMade += new AppsListView.ChangeHasBeenMadeHandler(AppsListBox_OnChangeHasBeenMade);
             AppsListBox.OnAppDeleted += new AppsListView.DeleteAppHandler(AppsListBox_OnAppDeleted);
 
-            checkForUpdates();
+            checkForUpdatesAsynchronously();
+            
+        }
+
+        private void checkForUpdatesAsynchronously()
+        {
+            Thread updaterThread = new Thread(new ThreadStart(
+                delegate ()
+                {
+                    cmdUpdate.Dispatcher.BeginInvoke(
+                        System.Windows.Threading.DispatcherPriority.Normal,
+                        new Action(delegate()
+                                   {
+                                       checkForUpdates();
+                                   }));
+                }));
+
+            updaterThread.Start();
         }
 
         private void checkForUpdates()
         {
-            try
-            {
-                string txt = System.Windows.Forms.Application.ProductVersion.Substring(0, 3);
-                double currentVersion = double.Parse(txt);
-                if (Updater.UpdateExists(currentVersion))
-                    cmdUpdate.Visibility = System.Windows.Visibility.Visible;
-            }
-            catch
-            { //swallow 
-            }
-
+            string txt = System.Windows.Forms.Application.ProductVersion.Substring(0, 3);
+            double currentVersion = double.Parse(txt);
+            if (Updater.UpdateExists(currentVersion))
+                cmdUpdate.Visibility = System.Windows.Visibility.Visible;
         }
+        
         private void InitSortingOptions()
         {
             cmbSorting.Items.Add("Sort by Name");
@@ -101,6 +112,7 @@ namespace LaunchLaterManager
             vm.SortApps(style);
             AppsListBox.DataContext = null;
             AppsListBox.DataContext = vm;
+
 
         }
 
@@ -155,10 +167,11 @@ namespace LaunchLaterManager
 
         private void AddButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            LLApplication newApp = new LLApplication() { Arguments = "", DelaySeconds = 0, FullPath = "", Name = "" };
+            LLApplication newApp = new LLApplication() { Arguments = "", DelaySeconds = 0, FullPath = "", Name = "", Enabled = true};
             config.DefaultProfile.Applications.Add(newApp);
             AppViewModel appVM = new AppViewModel() { App = newApp };
             appsListVM.Applications.Add(appVM);
+            config.IsDirty = true;
 
         }
 

@@ -37,7 +37,10 @@ namespace LaunchLaterManager
         {
             get
             {
-                return ((AppViewModel)DataContext).App;
+                if (DataContext is AppViewModel)
+                    return ((AppViewModel)DataContext).App;
+                else
+                    return new LLApplication();
             }
             private set{}
         }
@@ -80,7 +83,12 @@ namespace LaunchLaterManager
             }
             else
             {
-                OnAppDeleted(this, new EventArgs());
+                AppViewModel currentApp = (AppViewModel)this.DataContext;
+                if (currentApp.Name == null || currentApp.Name == "")
+                {
+                    OnAppDeleted(this, new EventArgs());
+                }
+                
             }
 
             
@@ -114,9 +122,8 @@ namespace LaunchLaterManager
         	
         }
 
-        private void GoToViewingMode()
+        public void GoToViewingMode()
         {
-           
             if (App.Enabled == true)
                 VisualStateManager.GoToState(this, "ViewingMode", true);
             else
@@ -129,9 +136,10 @@ namespace LaunchLaterManager
 			{
                 EditButton_Click(this, new RoutedEventArgs());
                 FindAppButton_Click(this, new RoutedEventArgs());
+                GoToViewingMode();
 			}
         	IsNewAppConfig = false;
-            GoToViewingMode();
+            
         }
 
        
