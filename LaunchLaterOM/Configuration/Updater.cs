@@ -16,12 +16,19 @@ namespace LaunchLaterOM.Configuration
 
         private static double getLatestReleaseVersion()
         {
-            List<Feed> feed = RSSConnector.getBlogInfo("http://launchlater.codeplex.com/Project/ProjectRss.aspx?ProjectRSSFeed=codeplex://release/launchlater");
+            try
+            {
+                List<Feed> feed = RSSConnector.getBlogInfo("http://launchlater.codeplex.com/Project/ProjectRss.aspx?ProjectRSSFeed=codeplex://release/launchlater");
 
-            string txt = feed.Where(x => x.Title.StartsWith("Released")).First().Title.Split().ToList()[2];
-            double result = 0;
-            double.TryParse(txt, out result);
-            return result;
+                string txt = feed.Where(x => x.Title.StartsWith("Released")).First().Title.Split().ToList()[2];
+                double result = 0;
+                double.TryParse(txt, out result);
+                return result;
+            }
+            catch
+            {
+                return 0;
+            }
  
         }
     }
