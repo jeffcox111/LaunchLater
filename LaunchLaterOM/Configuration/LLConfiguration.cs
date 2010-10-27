@@ -16,6 +16,9 @@ namespace LaunchLaterOM
 
         public bool IsDirty { get; set; }
 
+        public static string FILENAME = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\LaunchLater\\LaunchLaterApps.config";
+        public static string OLDFILENAME = "LaunchLaterApps.config";
+
         public LLProfile DefaultProfile
         {
             get
@@ -26,11 +29,9 @@ namespace LaunchLaterOM
         }
        
 
-        public LLConfiguration(string configurationFile)
+        public LLConfiguration(bool autoload)
         {
-            configFile = configurationFile;
-            
-            Profiles = LLProfile.GetProfiles(configFile);
+            Profiles = LLProfile.GetProfiles();
 
             IsDirty = false;
         }
@@ -46,7 +47,7 @@ namespace LaunchLaterOM
         }
 
 
-        public bool WriteFreshConfigurationFile(string fileName)
+        public bool WriteFreshConfigurationFile()
         {
             try
             {
@@ -58,16 +59,14 @@ namespace LaunchLaterOM
 
                 if (!Directory.Exists(path + "\\LaunchLater"))
                     Directory.CreateDirectory(path + "\\LaunchLater");
-                
 
-                fileName = path + "\\LaunchLater\\" + fileName;               
-                xml.Save(fileName);
+                xml.Save(FILENAME);
 
                 return true;
             }
             catch (Exception ex)
             {
-                System.Diagnostics.EventLog.WriteEntry("LaunchLater", "There was a problem saving configuration to the file: " + fileName + ". " + ex.ToString());
+                System.Diagnostics.EventLog.WriteEntry("LaunchLater", "There was a problem saving configuration to the file: LaunchLaterApps.config" + ". " + ex.ToString());
                 return false;
             }
 

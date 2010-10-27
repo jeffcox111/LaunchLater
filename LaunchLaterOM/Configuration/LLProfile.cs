@@ -36,19 +36,19 @@ namespace LaunchLaterOM.Configuration
         {
             return this.ToXML().ToString();
         }
-        public static List<LLProfile> GetProfiles(string configFileName)
+        public static List<LLProfile> GetProfiles()
         {
             XDocument xml;
 
-            if (File.Exists(LLUtilities.GetConfigPath() + "\\" + configFileName))
-                xml = XDocument.Load(LLUtilities.GetConfigPath() + "\\" + configFileName);
+            if (File.Exists(LLConfiguration.FILENAME))
+                xml = XDocument.Load(LLConfiguration.FILENAME);
             else
-                xml = XDocument.Load(configFileName);
+                xml = XDocument.Load(LLConfiguration.OLDFILENAME);
 
             var profiles = from p in xml.Element("LaunchLaterConfig").Element("Profiles").Elements()
                                 select new LLProfile
                                 {
-                                    Applications = LLProfile.GetApplications(configFileName, p.Attribute("Name").Value)
+                                    Applications = LLProfile.GetApplications(p.Attribute("Name").Value)
                                     ,IsDefault = Convert.ToBoolean(p.Attribute("Default").Value)
                                     ,Name = p.Attribute("Name").Value
                                 };
@@ -57,7 +57,7 @@ namespace LaunchLaterOM.Configuration
             
         }
 
-        public static List<LLApplication> GetApplications(string configFileName, string profileName)
+        public static List<LLApplication> GetApplications(string profileName)
         {
             EventLog.WriteEntry("LaunchLater", "Loading configuration...");
 
@@ -65,10 +65,10 @@ namespace LaunchLaterOM.Configuration
             {
                 XDocument xml;
 
-                if (File.Exists(LLUtilities.GetConfigPath() + "\\" + configFileName))
-                    xml = XDocument.Load(LLUtilities.GetConfigPath() + "\\" + configFileName);
+                if (File.Exists(LLConfiguration.FILENAME))
+                    xml = XDocument.Load(LLConfiguration.FILENAME);
                 else
-                    xml = XDocument.Load(configFileName);
+                    xml = XDocument.Load(LLConfiguration.OLDFILENAME);
                 
 
                 XElement defaultProfile = (from a in xml.Element("LaunchLaterConfig").Element("Profiles").Elements()
