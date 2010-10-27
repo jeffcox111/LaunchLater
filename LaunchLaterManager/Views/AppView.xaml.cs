@@ -53,8 +53,7 @@ namespace LaunchLaterManager
             {
                 AppViewModel currentApp = (AppViewModel)this.DataContext;
                 currentApp.Arguments = ArgumentsText.Text;
-                currentApp.DelaySeconds = cmbSeconds.Text;
-                currentApp.DelayMinutes = cmbMinutes.Text;
+                currentApp.DelaySeconds = (int.Parse(cmbSeconds.Text) + (60 * int.Parse(cmbMinutes.Text))).ToString();
                 currentApp.Enabled = EnabledCheckBox.IsChecked ?? true;
                 OnChangeHasBeenMade(this, new EventArgs());
             }
