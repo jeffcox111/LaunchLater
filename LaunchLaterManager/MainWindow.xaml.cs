@@ -65,13 +65,7 @@ namespace LaunchLaterManager
 
         private static LLConfiguration getConfiguration()
         {
-
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).ToString() + "\\LaunchLater";
-
-            if (File.Exists(path + "\\LaunchLaterApps.config"))
-                return new LLConfiguration(path + "\\LaunchLaterApps.config");
-            else
-                return new LLConfiguration("LaunchLaterApps.config");
+                return new LLConfiguration(true);
         }
 
 
@@ -164,7 +158,7 @@ namespace LaunchLaterManager
                 MessageBoxResult result = MessageBox.Show("Do you want to save changes?", "LaunchLater", MessageBoxButton.YesNoCancel);
                 if (result == MessageBoxResult.Yes)
                 {
-                    config.WriteFreshConfigurationFile("LaunchLaterApps.config");
+                    config.WriteFreshConfigurationFile();
                     Application.Current.Shutdown();
                 }
                 else if (result == MessageBoxResult.No)
@@ -306,7 +300,7 @@ namespace LaunchLaterManager
             {
                 ImportRegistryStartupItems();
                 ImportStartupFolderItems();
-                config.WriteFreshConfigurationFile("LaunchLaterApps.config");
+                config.WriteFreshConfigurationFile();
                 config.IsDirty = false;
             }
         }

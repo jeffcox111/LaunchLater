@@ -33,9 +33,9 @@ namespace LaunchLaterOM
         private static LLConfiguration getConfiguration()
         {
             if (File.Exists(Environment.SpecialFolder.ApplicationData.ToString() + @"\LaunchLater\LaunchLaterApps.config"))
-                return new LLConfiguration(Environment.SpecialFolder.ApplicationData.ToString() + @"\LaunchLater\LaunchLaterApps.config");
+                return new LLConfiguration(true);
             else
-                return new LLConfiguration("LaunchLaterApps.config");
+                return new LLConfiguration(true);
         }
 
         static void x_AppStarting(object sender, AppStartingEventArgs e)
