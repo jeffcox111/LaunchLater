@@ -63,7 +63,7 @@ namespace LaunchLaterManager.ViewModels
                 int seconds;
                 bool parseResult = int.TryParse(value, out seconds);
                 App.DelaySeconds = parseResult ? seconds : 0;
-                App.DelaySeconds += int.Parse(DelayMinutes) * 60;
+                
                 NotifyPropertyChanged("DelaySeconds");
                 NotifyPropertyChanged("DelayTime");
             }
@@ -75,14 +75,14 @@ namespace LaunchLaterManager.ViewModels
             {
                 return (App.DelaySeconds / 60).ToString();
             }
-            set
+            private set
             {
-                int minutes;
-                bool parseREsult = int.TryParse(value, out minutes);
-                App.DelaySeconds = int.Parse(DelaySeconds);
-                App.DelaySeconds += parseREsult ? minutes * 60 : 0;
-                NotifyPropertyChanged("DelayMinutes");
-                NotifyPropertyChanged("DelayTime");
+                //int minutes;
+                //bool parseREsult = int.TryParse(value, out minutes);
+                //App.DelaySeconds = int.Parse(DelaySeconds);
+                //App.DelaySeconds += parseREsult ? minutes * 60 : 0;
+                //NotifyPropertyChanged("DelayMinutes");
+                //NotifyPropertyChanged("DelayTime");
                
             }
         }
@@ -91,8 +91,8 @@ namespace LaunchLaterManager.ViewModels
         {
             get
             {
-                TimeSpan ts = TimeSpan.FromSeconds(int.Parse(DelaySeconds) + (int.Parse(DelayMinutes) * 60));
-                return ts.ToString().Remove(1,3);
+                TimeSpan ts = TimeSpan.FromSeconds(App.DelaySeconds);
+                return ts.ToString().Substring(3,5);
 
             }
             private set { }
