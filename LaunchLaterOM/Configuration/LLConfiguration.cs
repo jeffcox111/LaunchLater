@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml.Linq;
 using System.Diagnostics;
 using LaunchLaterOM.Configuration;
+using System.IO;
 namespace LaunchLaterOM
 {
     public class LLConfiguration : IComparable
@@ -49,14 +50,17 @@ namespace LaunchLaterOM
         {
             try
             {
-                //XDocument xml = new XDocument(new XElement("LaunchLaterConfig"));
                 XElement profs = new XElement("Profiles");
 
                 Profiles.ForEach(x => profs.Add(x.ToXML()));
                 XDocument xml = new XDocument(new XElement("LaunchLaterConfig", profs));
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).ToString();
+
+                if (!Directory.Exists(path + "\\LaunchLater"))
+                    Directory.CreateDirectory(path + "\\LaunchLater");
                 
-                //xml.Add(profs);
-                
+
+                fileName = path + "\\LaunchLater\\" + fileName;               
                 xml.Save(fileName);
 
                 return true;

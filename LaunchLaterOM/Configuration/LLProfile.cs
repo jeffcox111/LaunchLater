@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
+using System.IO;
 
 namespace LaunchLaterOM.Configuration
 {
@@ -37,7 +38,12 @@ namespace LaunchLaterOM.Configuration
         }
         public static List<LLProfile> GetProfiles(string configFileName)
         {
-            XDocument xml = XDocument.Load(LLUtilities.GetConfigPath() + "\\" + configFileName);
+            XDocument xml;
+
+            if (File.Exists(LLUtilities.GetConfigPath() + "\\" + configFileName))
+                xml = XDocument.Load(LLUtilities.GetConfigPath() + "\\" + configFileName);
+            else
+                xml = XDocument.Load(configFileName);
 
             var profiles = from p in xml.Element("LaunchLaterConfig").Element("Profiles").Elements()
                                 select new LLProfile
@@ -57,8 +63,13 @@ namespace LaunchLaterOM.Configuration
 
             try
             {
+                XDocument xml;
 
-                XDocument xml = XDocument.Load(LLUtilities.GetConfigPath() + "\\" + configFileName);
+                if (File.Exists(LLUtilities.GetConfigPath() + "\\" + configFileName))
+                    xml = XDocument.Load(LLUtilities.GetConfigPath() + "\\" + configFileName);
+                else
+                    xml = XDocument.Load(configFileName);
+                
 
                 XElement defaultProfile = (from a in xml.Element("LaunchLaterConfig").Element("Profiles").Elements()
                                            where a.Attribute("Name").Value == profileName

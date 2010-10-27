@@ -43,8 +43,8 @@ namespace LaunchLaterManager
 
             appsListVM = new AppsListViewModel();
 
-            config = new LLConfiguration("LaunchLaterApps.config");
-
+            config = getConfiguration();
+          
             var apps = (from a in config.DefaultProfile.Applications
                         select new AppViewModel{ App = a }).ToList();
 
@@ -59,8 +59,21 @@ namespace LaunchLaterManager
             AppsListBox.OnAppDeleted += new AppsListView.DeleteAppHandler(AppsListBox_OnAppDeleted);
 
             checkForUpdatesAsynchronously();
+
             
         }
+
+        private static LLConfiguration getConfiguration()
+        {
+
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).ToString() + "\\LaunchLater";
+
+            if (File.Exists(path + "\\LaunchLaterApps.config"))
+                return new LLConfiguration(path + "\\LaunchLaterApps.config");
+            else
+                return new LLConfiguration("LaunchLaterApps.config");
+        }
+
 
         private void checkForUpdatesAsynchronously()
         {

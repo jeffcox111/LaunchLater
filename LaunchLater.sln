@@ -94,6 +94,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		BuildVersion_BuildVersioningStyle = None.None.Increment.TimeStamp
 		BuildVersion_UseGlobalSettings = True
 	EndGlobalSection
 EndGlobal
