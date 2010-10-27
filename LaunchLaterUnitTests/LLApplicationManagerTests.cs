@@ -76,7 +76,7 @@ namespace LaunchLaterUnitTests
         [TestMethod]
         public void TestConfigurationLoaded_Success()
         {
-            LLConfiguration config = new LLConfiguration("LaunchLaterApps.config");
+            LLConfiguration config = new LLConfiguration(true);
 
             Assert.IsTrue(config.Profiles.First().Applications.Count > 0);
 
