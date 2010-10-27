@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media.Imaging;
+using System;
 
 namespace LaunchLaterManager.ViewModels
 {
@@ -56,14 +57,45 @@ namespace LaunchLaterManager.ViewModels
         {
             get
             {
-                return App.DelaySeconds.ToString();
+                return (App.DelaySeconds % 60).ToString();
             }
             set {
                 int seconds;
                 bool parseResult = int.TryParse(value, out seconds);
                 App.DelaySeconds = parseResult ? seconds : 0;
+                App.DelaySeconds += int.Parse(DelayMinutes) * 60;
                 NotifyPropertyChanged("DelaySeconds");
+                NotifyPropertyChanged("DelayTime");
             }
+        }
+
+        public string DelayMinutes
+        {
+            get
+            {
+                return (App.DelaySeconds / 60).ToString();
+            }
+            set
+            {
+                int minutes;
+                bool parseREsult = int.TryParse(value, out minutes);
+                App.DelaySeconds = int.Parse(DelaySeconds);
+                App.DelaySeconds += parseREsult ? minutes * 60 : 0;
+                NotifyPropertyChanged("DelayMinutes");
+                NotifyPropertyChanged("DelayTime");
+               
+            }
+        }
+
+        public string DelayTime
+        {
+            get
+            {
+                TimeSpan ts = TimeSpan.FromSeconds(int.Parse(DelaySeconds) + (int.Parse(DelayMinutes) * 60));
+                return ts.ToString().Remove(1,3);
+
+            }
+            private set { }
         }
 
         public bool Enabled

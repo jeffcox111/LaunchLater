@@ -21,9 +21,11 @@ namespace LaunchLaterOM
 
         public static string GetConfigPath()
         {
-            return System.Reflection.Assembly.GetExecutingAssembly().Location.Remove(
-                System.Reflection.Assembly.GetExecutingAssembly().Location.Length - 17, 17);
-
+            if(Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).ToString() + "\\LaunchLater"))
+                return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).ToString() + "\\LaunchLater";
+            else
+                return System.Reflection.Assembly.GetExecutingAssembly().Location.Remove(
+                    System.Reflection.Assembly.GetExecutingAssembly().Location.Length - 17, 17);
         }
 
         public static IEnumerable<string> Split(this string str, Func<char, bool> controller)

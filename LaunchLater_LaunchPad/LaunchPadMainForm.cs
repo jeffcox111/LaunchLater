@@ -115,7 +115,7 @@ namespace LaunchLater_LaunchPad
                     {
                         
                         string txt = "";
-                        txt = x.App.Name + " in " + TimeSpan.FromSeconds(seconds).ToString();
+                        txt = x.App.Name + " in " + TimeSpan.FromSeconds(seconds).ToString().Remove(1,3);
                         if (menuItem.Tag == "Paused") txt += " (Paused)";
                         menuItem.Text = txt;
                     }
@@ -124,7 +124,7 @@ namespace LaunchLater_LaunchPad
                 {
                     if (seconds > 0 && !x.Started)
                     {
-                        MenuItem m = new MenuItem(x.App.Name + " in " + TimeSpan.FromSeconds(x.GetSecondsRemaining()).ToString());
+                        MenuItem m = new MenuItem(x.App.Name + " in " + TimeSpan.FromSeconds(x.GetSecondsRemaining()).ToString().Remove(1,3));
                        
                         MenuItem subPause = new MenuItem("Pause/Resume");
                         MenuItem subExecute = new MenuItem("Execute");
