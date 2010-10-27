@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.IO;
 
 namespace LaunchLaterOM
 {
@@ -19,7 +20,7 @@ namespace LaunchLaterOM
 
             ApplicationTimers = new List<LLAppTimer>();
 
-            LLConfiguration config = new LLConfiguration("LaunchLaterApps.config");
+            LLConfiguration config = getConfiguration();
 
             var apps = config.DefaultProfile.Applications.Where(x => x.Enabled == true).ToList();
             apps = (from a in apps
@@ -27,6 +28,14 @@ namespace LaunchLaterOM
                    select a).ToList();
             apps.ForEach(x => ApplicationTimers.Add(new LLAppTimer(x)));
             ApplicationTimers.ForEach(x => x.AppStarting +=new LLAppTimer.AppStartingEventHandler(x_AppStarting));
+        }
+
+        private static LLConfiguration getConfiguration()
+        {
+            if (File.Exists(Environment.SpecialFolder.ApplicationData.ToString() + @"\LaunchLater\LaunchLaterApps.config"))
+                return new LLConfiguration(Environment.SpecialFolder.ApplicationData.ToString() + @"\LaunchLater\LaunchLaterApps.config");
+            else
+                return new LLConfiguration("LaunchLaterApps.config");
         }
 
         static void x_AppStarting(object sender, AppStartingEventArgs e)

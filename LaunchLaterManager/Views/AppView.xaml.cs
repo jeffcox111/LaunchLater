@@ -44,6 +44,7 @@ namespace LaunchLaterManager
             }
             private set{}
         }
+
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             GoToViewingMode();
@@ -52,7 +53,8 @@ namespace LaunchLaterManager
             {
                 AppViewModel currentApp = (AppViewModel)this.DataContext;
                 currentApp.Arguments = ArgumentsText.Text;
-                currentApp.DelaySeconds = DelaySecondsText.Text;
+                currentApp.DelaySeconds = cmbSeconds.Text;
+                currentApp.DelayMinutes = cmbMinutes.Text;
                 currentApp.Enabled = EnabledCheckBox.IsChecked ?? true;
                 OnChangeHasBeenMade(this, new EventArgs());
             }
@@ -132,13 +134,20 @@ namespace LaunchLaterManager
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+            for (int i = 0; i < 61; i++)
+                cmbMinutes.Items.Add(i.ToString());
+                            
+            for (int i = 0; i < 60; i++)
+                cmbSeconds.Items.Add(i.ToString());
+
 			if(IsNewAppConfig && App.FullPath=="")
 			{
                 EditButton_Click(this, new RoutedEventArgs());
                 FindAppButton_Click(this, new RoutedEventArgs());
                 GoToViewingMode();
 			}
-        	IsNewAppConfig = false;
+        	
+            IsNewAppConfig = false;
             
         }
 
