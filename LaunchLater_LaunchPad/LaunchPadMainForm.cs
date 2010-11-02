@@ -70,12 +70,29 @@ namespace LaunchLater_LaunchPad
         {
             MenuItem m = new MenuItem() { Text = "Exit" };
             m.Click += new EventHandler(Exit_Click);
-            
+
+            MenuItem configItem = new MenuItem() { Text = "Configuration" };
+            configItem.Click += new EventHandler(configItem_Click);
 
             MenuItem m2 = new MenuItem() { Text = "Pause All" };
             m2.Click +=new EventHandler(PauseResume_Click);
             contextMenu.MenuItems.Add(m2);
+            contextMenu.MenuItems.Add(configItem);
             contextMenu.MenuItems.Add(m);
+        }
+
+        void configItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string pathToConfigApp = Application.ExecutablePath.Remove(Application.ExecutablePath.Length - 17, 17) + "\\LaunchLaterManager.exe";
+                Process.Start(pathToConfigApp);
+            }
+            catch
+            {
+                EventLog.WriteEntry("LL_LauchPad", "Unable to launch configuration UI.", EventLogEntryType.Error);
+            }
+
         }
 
         private void populateContextMenu()
@@ -238,10 +255,16 @@ namespace LaunchLater_LaunchPad
 
         void LLApplicationsManager_AppStarting(object sender, AppStartingEventArgs e)
         {
-            EventLog.WriteEntry("LaunchPad", "Launching application: " + e.Name);
-            
-            trayIcon.ShowBalloonTip(0, "LaunchLater", "Executing " + e.Name, ToolTipIcon.Info);
+            try
+            {
+                EventLog.WriteEntry("LaunchPad", "Launching application: " + e.Name);
 
+                trayIcon.ShowBalloonTip(0, "LaunchLater", "Executing " + e.Name, ToolTipIcon.Info);
+            }
+            catch
+            {
+                //swallow
+            }
         }
 
         private void cleanUp(object stateInfo)

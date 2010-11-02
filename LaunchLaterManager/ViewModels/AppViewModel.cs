@@ -77,13 +77,6 @@ namespace LaunchLaterManager.ViewModels
             }
             private set
             {
-                //int minutes;
-                //bool parseREsult = int.TryParse(value, out minutes);
-                //App.DelaySeconds = int.Parse(DelaySeconds);
-                //App.DelaySeconds += parseREsult ? minutes * 60 : 0;
-                //NotifyPropertyChanged("DelayMinutes");
-                //NotifyPropertyChanged("DelayTime");
-               
             }
         }
 
