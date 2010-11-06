@@ -30,12 +30,38 @@ namespace LaunchLaterOM
             return true;
         }
 
-        public void Delete()
+        public static void Restore(LLApplication app)
+        {
+            if (app.IsImported)
+            {
+                if (app.RegistryInfo != null)
+                {
+                    var regKeys = new List<RegistryKey>() {
+                            RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default),
+                            RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default)
+                    };
+                    foreach (var regKey in regKeys)
+                    {
+                        if (regKey.Name == app.RegistryInfo.RegistryName)
+                        {
+                            var registeryKey = regKey.OpenSubKey(app.RegistryInfo.RegistryLocation, true);
+                            if (registeryKey != null)
+                                registeryKey.SetValue(app.RegistryInfo.RegistryKey, app.RegistryInfo.RegistryValue);
+                        }
+                    }
+                }
+                else if (app.FolderInfo != null)
+                {
+                    LLUtilities.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.Startup), app.FullPath, app.Arguments, app.Name);
+                }
+            }
+        }
+
+        public static void Delete(LLApplication app)
         {
             // delete the item from it's location
-            if (this is StartupRegistryItem)
+            if (app.RegistryInfo != null)
             {
-                var registryItem = this as StartupRegistryItem;
                 var regKeys = new List<RegistryKey>() {
                         RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64),
                         RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32),
@@ -44,16 +70,15 @@ namespace LaunchLaterOM
                 };
                 foreach (var regKey in regKeys)
                 {
-                    var registeryKey = regKey.OpenSubKey(registryItem.RegistryLocation, true);
+                    var registeryKey = regKey.OpenSubKey(app.RegistryInfo.RegistryLocation, true);
                     if (registeryKey != null)
-                        if(registeryKey.GetValueNames().Contains(registryItem.RegistryKey))
-                            registeryKey.DeleteValue(registryItem.RegistryKey, false);
+                        if (registeryKey.GetValueNames().Contains(app.RegistryInfo.RegistryKey))
+                            registeryKey.DeleteValue(app.RegistryInfo.RegistryKey, false);
                 }                
             }
-            else if (this is StartupFolderItem)
+            else if (app.FolderInfo != null)
             {
-                var fileItem = this as StartupFolderItem;
-                File.Delete(fileItem.ShortcutFullPath);
+                File.Delete(app.FolderInfo.ShortcutFullPath);
             }
         }
 

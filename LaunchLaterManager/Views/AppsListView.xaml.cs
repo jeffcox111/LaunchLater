@@ -17,7 +17,7 @@ namespace LaunchLaterManager
         public delegate void ChangeHasBeenMadeHandler(object sender, EventArgs e);
         public event ChangeHasBeenMadeHandler OnChangeHasBeenMade;
 
-        public delegate void DeleteAppHandler(object sender, EventArgs e);
+        public delegate void DeleteAppHandler(object sender, AppDeletedEventArgs e);
         public event DeleteAppHandler OnAppDeleted;
 
         private void AppView_OnChangeHasBeenMade(object sender, EventArgs e)
@@ -25,9 +25,9 @@ namespace LaunchLaterManager
             OnChangeHasBeenMade(this, new EventArgs());
         }
 
-        private void AppView_OnAppDeleted(object sender, EventArgs e)
+        private void AppView_OnAppDeleted(object sender, AppDeletedEventArgs e)
         {
-            OnAppDeleted(sender, new EventArgs());
+            OnAppDeleted(sender, e);
         }
 
         private void AppView_Loaded(object sender, System.Windows.RoutedEventArgs e)

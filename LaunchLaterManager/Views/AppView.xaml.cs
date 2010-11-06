@@ -18,7 +18,7 @@ namespace LaunchLaterManager
         public delegate void ChangeHasBeenMadeHandler(object sender, EventArgs e);
         public event ChangeHasBeenMadeHandler OnChangeHasBeenMade;
 
-        public delegate void DeleteAppHandler(object sender, EventArgs e);
+        public delegate void DeleteAppHandler(object sender, AppDeletedEventArgs e);
         public event DeleteAppHandler OnAppDeleted;
         
         public AppView()
@@ -87,12 +87,9 @@ namespace LaunchLaterManager
                 AppViewModel currentApp = (AppViewModel)this.DataContext;
                 if (currentApp.Name == null || currentApp.Name == "")
                 {
-                    OnAppDeleted(this, new EventArgs());
+                    OnAppDeleted(this, new AppDeletedEventArgs(false));
                 }
-                
             }
-
-            
         }
 
         private void DeleteButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -100,9 +97,12 @@ namespace LaunchLaterManager
             MessageBoxResult result = MessageBox.Show("Are you sure you want to remove this application?", "LaunchLater", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                OnAppDeleted(this, new EventArgs());
-            }
-            
+                var shouldRestore = false;
+                if (App.IsImported)
+                    shouldRestore = MessageBox.Show("Do you want LaunchLater to put this application back from where it was originally imported?", "LaunchLater", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+
+                OnAppDeleted(this, new AppDeletedEventArgs(shouldRestore));
+            }                      
         }
 
         private void DeleteButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -154,4 +154,14 @@ namespace LaunchLaterManager
 
        
 	}
+
+    public class AppDeletedEventArgs
+    {
+        public bool ShouldRestoreToStartupItems { get; set; }
+
+        public AppDeletedEventArgs(bool shouldRestoreToStartupItems)
+        {
+            ShouldRestoreToStartupItems = shouldRestoreToStartupItems;
+        }
+    }
 }

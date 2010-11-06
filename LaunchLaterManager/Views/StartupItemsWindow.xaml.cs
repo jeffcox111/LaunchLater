@@ -27,7 +27,7 @@ namespace LaunchLaterManager.Views
         /// <summary>
         /// This is an event that will fire once we have created an LLApplication. If the caller returns False, the item will not be deleted from it's original location.
         /// </summary>
-        public Func<LLApplication, bool> ApplicationCreated { get; set; }
+        public Action<LLApplication> ApplicationCreated { get; set; }
 
         public StartupItemsWindow()
         {
@@ -52,8 +52,7 @@ namespace LaunchLaterManager.Views
                 if (ApplicationCreated != null && newApp != null)
                 {
                     // the parent window should deal with adding the app to the config file
-                    if (ApplicationCreated(newApp))
-                        selectedItem.Delete(); // we only want to delete if the app was successfully put into the configuration file
+                    ApplicationCreated(newApp);
                 }
             }
 
