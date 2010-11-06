@@ -49,8 +49,6 @@ namespace LaunchLaterOM
             }
             return xml;
         }
-
-        
     }
 
     

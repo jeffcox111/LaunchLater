@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.IO;
+using IWshRuntimeLibrary;
 
 namespace LaunchLaterOM
 {
@@ -21,7 +22,7 @@ namespace LaunchLaterOM
 
         public static string GetConfigPath()
         {
-            if(Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).ToString() + "\\LaunchLater"))
+            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).ToString() + "\\LaunchLater"))
                 return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).ToString() + "\\LaunchLater";
             else
                 return System.Reflection.Assembly.GetExecutingAssembly().Location.Remove(
@@ -216,6 +217,17 @@ namespace LaunchLaterOM
 
         #endregion
 
+
+        public static void CreateShortcut(string folder, string filePath, string args, string shortCutName)
+        {
+            var shell = new WshShellClass();
+            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(Path.Combine(folder, shortCutName + ".lnk"));
+            shortcut.TargetPath = filePath;
+            shortcut.Arguments = args;
+            // save it / create
+            shortcut.Save();
+
+        }
 
         public static string ResolveShortcutPath(string filename)
         {
