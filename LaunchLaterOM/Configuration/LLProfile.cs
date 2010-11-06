@@ -83,7 +83,9 @@ namespace LaunchLaterOM.Configuration
                                Name = a.Attribute("Name").Value,
                                DelaySeconds = int.Parse(a.Attribute("DelaySeconds").Value),
                                Arguments = a.Attribute("Arguments").Value,
-                               Enabled = getSafeBoolean(a, "Enabled")
+                               Enabled = getSafeBoolean(a, "Enabled"),
+                               FolderInfo = GetFolderInfo(a),
+                               RegistryInfo = GetRegistryInfo(a)
                            };
 
                 return apps.ToList();
@@ -95,11 +97,31 @@ namespace LaunchLaterOM.Configuration
             }
         }
 
+        private static StartupFolderInformation GetFolderInfo(XElement a)
+        {
+            var shortcutAttr = a.Attribute("ShortcutFullPath");
+            if(shortcutAttr == null || string.IsNullOrEmpty(shortcutAttr.Value)) return null;
+            return new StartupFolderInformation(shortcutAttr.Value);
+        }
+
+        private static StartupRegistryInformation GetRegistryInfo(XElement a)
+        {
+            var regNameAttr = a.Attribute("RegistryName");
+            var regLocationeAttr = a.Attribute("RegistryLocation");
+            var regKeyAttr = a.Attribute("RegistryKey");
+            var regValueAttr = a.Attribute("RegistryValue");
+            // make sure none of the values are missing or non-existant
+            if (regNameAttr == null || regLocationeAttr == null || regKeyAttr == null || regValueAttr == null) return null;
+            if (string.IsNullOrEmpty(regNameAttr.Value) || string.IsNullOrEmpty(regLocationeAttr.Value) || string.IsNullOrEmpty(regKeyAttr.Value) || string.IsNullOrEmpty(regValueAttr.Value)) return null;
+
+            return new StartupRegistryInformation(regNameAttr.Value, regLocationeAttr.Value, regKeyAttr.Value, regValueAttr.Value);
+        }
+
         private static bool getSafeBoolean(XElement a, string p)
         {
             try
-            {
-                bool result = bool.Parse(a.Attribute(p).Value);
+            {                
+                bool result = a.Attribute(p) != null ? bool.Parse(a.Attribute(p).Value) : true;
                 return result;
             }
             catch

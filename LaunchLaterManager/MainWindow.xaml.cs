@@ -10,6 +10,7 @@ using System.Windows;
 using LaunchLaterOM.Configuration;
 using System.Threading;
 using System.Diagnostics;
+using LaunchLaterManager.Views;
 
 namespace LaunchLaterManager
 {
@@ -44,9 +45,9 @@ namespace LaunchLaterManager
             appsListVM = new AppsListViewModel();
 
             config = getConfiguration();
-          
+
             var apps = (from a in config.DefaultProfile.Applications
-                        select new AppViewModel{ App = a }).ToList();
+                        select new AppViewModel { App = a }).ToList();
 
             ObservableCollection<AppViewModel> appViewModels = new ObservableCollection<AppViewModel>();
 
@@ -60,19 +61,19 @@ namespace LaunchLaterManager
 
             checkForUpdatesAsynchronously();
 
-            
+
         }
 
         private static LLConfiguration getConfiguration()
         {
-                return new LLConfiguration(true);
+            return new LLConfiguration(true);
         }
 
 
         private void checkForUpdatesAsynchronously()
         {
             Thread updaterThread = new Thread(new ThreadStart(
-                delegate ()
+                delegate()
                 {
                     cmdUpdate.Dispatcher.BeginInvoke(
                         System.Windows.Threading.DispatcherPriority.Normal,
@@ -92,7 +93,7 @@ namespace LaunchLaterManager
             if (Updater.UpdateExists(currentVersion))
                 cmdUpdate.Visibility = System.Windows.Visibility.Visible;
         }
-        
+
         private void InitSortingOptions()
         {
             cmbSorting.Items.Add("Sort by Name");
@@ -106,7 +107,7 @@ namespace LaunchLaterManager
         void cmbSorting_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
 
-            AppSortingStyle style ;
+            AppSortingStyle style;
 
             switch (cmbSorting.SelectedItem.ToString())
             {
@@ -174,7 +175,7 @@ namespace LaunchLaterManager
 
         private void AddButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            LLApplication newApp = new LLApplication() { Arguments = "", DelaySeconds = 0, FullPath = "", Name = "", Enabled = true};
+            LLApplication newApp = new LLApplication() { Arguments = "", DelaySeconds = 0, FullPath = "", Name = "", Enabled = true };
             config.DefaultProfile.Applications.Add(newApp);
             AppViewModel appVM = new AppViewModel() { App = newApp };
             appsListVM.Applications.Add(appVM);
@@ -182,140 +183,23 @@ namespace LaunchLaterManager
 
         }
 
-        private void ImportRegistryStartupItems()
-        {
-            var regKeys = new List<RegistryKey>() {
-                        RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64),
-                        RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32),
-                        RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64),
-                        RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32)
-                };
-
-            // check registry
-            string runKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
-
-            foreach (var regKey in regKeys)
-            {
-                if (regKey != null)
-                {
-                    foreach (var reg in GetRegistryItemsForKey(regKey, runKey))
-                    {
-                        // make sure we skip LL if it is somehow in the registry
-                        if (LLUtilities.LLIsTryingToRunItself(reg.Value))
-                            continue;
-
-                        var filePath = reg.Value;
-                        var argsString = string.Empty;
-                        if (!File.Exists(filePath))
-                        {
-                            // we need to attempt to break out the path from the command arguments
-                            var inQuotes = false;
-                            var pathValues = reg.Value.Split(c =>
-                            {
-                                if (c == '\"')
-                                    inQuotes = !inQuotes;
-
-                                return !inQuotes && c == ' ';
-                            })
-                            .Select(arg => arg.Trim().Replace("\"", ""))
-                            .Where(arg => !string.IsNullOrEmpty(arg)).ToList();
-                            filePath = pathValues.FirstOrDefault();
-
-                            // either we have a parsing error or the file doesn't exist, just skip it and move along
-                            if (filePath == null || !File.Exists(filePath))
-                                continue;
-
-                            foreach (var args in pathValues)
-                            {
-                                if (args != filePath)
-                                {
-                                    if (argsString != string.Empty)
-                                        argsString += " ";
-                                    argsString += args;
-                                }
-                            }
-                        }
-
-                        var newApp = new LLApplication { Arguments = argsString, DelaySeconds = 0, FullPath = filePath, Name = reg.Key };
-                        if (!config.DefaultProfile.Applications.Where(x => x.FullPath == newApp.FullPath && x.Arguments == newApp.Arguments && x.DelaySeconds == newApp.DelaySeconds).Any())
-                        {
-                            config.DefaultProfile.Applications.Add(newApp);
-                            var appVM = new AppViewModel() { App = newApp };
-                            appsListVM.Applications.Add(appVM);
-                            DeleteRegValue(regKey, runKey, reg.Key);
-                            config.IsDirty = true;
-                        }                        
-                    }
-                }
-            }
-        }
-
-        private void DeleteRegValue(RegistryKey regKey, string registryPath, string valueKey)
-        {
-            var registeryKey = regKey.OpenSubKey(registryPath, true);
-            if (registeryKey != null)
-            {
-                registeryKey.DeleteValue(valueKey, false);
-            }
-        }
-
-        private void ImportStartupFolderItems()
-        {
-            // check startup folder for current user
-            var startupFolder = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
-            if (Directory.Exists(startupFolder))
-            {
-                var files = LLUtilities.GetFiles(startupFolder, "*.lnk|*.exe");
-                foreach (var file in files)
-                {
-                    var filePath = file;
-                    if (file.Contains(".lnk"))
-                        filePath = LLUtilities.ResolveShortcut(file);
-
-                    // make sure we skip LL if it is somehow in the registry
-                    if (LLUtilities.LLIsTryingToRunItself(filePath))
-                        continue;
-
-                    // parse the file name in case the shortcut was bad
-                    var fileInfo = new FileInfo(filePath);
-                    if (fileInfo.Exists)
-                    {
-                        var newApp = new LLApplication { Arguments = string.Empty, DelaySeconds = 0, FullPath = fileInfo.FullName, Name = fileInfo.Name.Remove(fileInfo.Name.Length - 4, 4) };
-                        if (!config.DefaultProfile.Applications.Where(x => x.FullPath == newApp.FullPath && x.Arguments == newApp.Arguments && x.DelaySeconds == newApp.DelaySeconds).Any())
-                        {
-                            config.DefaultProfile.Applications.Add(newApp);
-                            var appVM = new AppViewModel() { App = newApp };
-                            appsListVM.Applications.Add(appVM);
-                            File.Delete(file);
-                            config.IsDirty = true;
-                        }
-                    }
-                }
-            }
-        }
-
         private void ImportStartupItemsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Would you like to load the existing startup items and allow LaunchLater to manage them?", "Load Existing Apps", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            var startupItemsWindow = new StartupItemsWindow();
+            startupItemsWindow.ApplicationCreated += (newApp) => 
             {
-                ImportRegistryStartupItems();
-                ImportStartupFolderItems();
-                config.WriteFreshConfigurationFile();
-                config.IsDirty = false;
-            }
-        }
-
-        private IEnumerable<KeyValuePair<string, string>> GetRegistryItemsForKey(RegistryKey regKey, string registryPath)
-        {
-            var registeryKey = regKey.OpenSubKey(registryPath);
-            if (registeryKey != null)
-            {
-                foreach (var registryKey in registeryKey.GetValueNames())
+                if (!config.DefaultProfile.Applications.Where(x => x.FullPath == newApp.FullPath && x.Arguments == newApp.Arguments && x.DelaySeconds == newApp.DelaySeconds).Any())
                 {
-                    yield return new KeyValuePair<string, string>(registryKey, registeryKey.GetValue(registryKey) as string);
+                    config.DefaultProfile.Applications.Add(newApp);
+                    var appVM = new AppViewModel() { App = newApp };
+                    appsListVM.Applications.Add(appVM);
+                    config.IsDirty = true;
+                    return true;
                 }
-            }
-        }
+                return false;
+            };
+            startupItemsWindow.Show();
+        }        
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {

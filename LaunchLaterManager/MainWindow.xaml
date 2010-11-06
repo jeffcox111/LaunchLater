@@ -18,12 +18,16 @@
     Margin="0,0,8,-25.677">
     		<TextBlock
     HorizontalAlignment="Left" TextWrapping="Wrap" Text="LaunchLater" VerticalAlignment="Top" Foreground="#FFCD8B51" FontSize="37.333"/>
-    		<Grid Margin="251.001,25,8,0" Height="56.677" VerticalAlignment="Top" >
-    			<Button Visibility="Hidden"
-    				x:Name="ImportStartupItemsButton" Content="Import Startup Items" HorizontalAlignment="Right" Margin="0,0,82.976,8" Click="ImportStartupItemsButton_Click" VerticalAlignment="Bottom"/>
-    			<ComboBox x:Name="cmbSorting" Margin="105.999,11.697,91,23.02" d:LayoutOverrides="Height"/>
+    		<Grid Margin="200.001,25,8,0" Height="56.677" VerticalAlignment="Top" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32*" />
+                    <RowDefinition Height="25*" />
+                </Grid.RowDefinitions>
+                <Button 
+    				x:Name="ImportStartupItemsButton" Content="Import Startup Items" HorizontalAlignment="Right" Margin="0,0,210,23" Click="ImportStartupItemsButton_Click" VerticalAlignment="Bottom" Grid.RowSpan="2" Width="128" />
+    			<ComboBox x:Name="cmbSorting" Margin="0,12,91,23" d:LayoutOverrides="Height" Grid.RowSpan="2" HorizontalAlignment="Right" Width="105" />
     			<Button
-    				x:Name="AddButton" Content="Add App" Width="75" d:LayoutOverrides="HorizontalAlignment" Click="AddButton_Click" HorizontalAlignment="Right" Margin="0,11.697,0,0" VerticalAlignment="Top"/>
+    				x:Name="AddButton" Content="Add App" Width="75" d:LayoutOverrides="HorizontalAlignment" Click="AddButton_Click" HorizontalAlignment="Right" Margin="0,12,0,0" VerticalAlignment="Top" Grid.RowSpan="2" />
     		</Grid>
     		<Button x:Name="cmdUpdate" Content="Click here to download the new version!" HorizontalAlignment="Right" Height="17" Margin="0,8,8,0" VerticalAlignment="Top" Width="172" FontSize="9.333" Foreground="#FF0B2AA7" Click="Button_Click" Visibility="Hidden"/>
     	</Grid>
