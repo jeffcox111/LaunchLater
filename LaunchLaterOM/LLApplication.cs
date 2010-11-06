@@ -9,6 +9,9 @@ namespace LaunchLaterOM
         public int DelaySeconds { get; set; }
         public string Arguments { get; set; }
         public bool Enabled { get; set; }
+        public StartupRegistryInformation RegistryInfo { get; set; }
+        public StartupFolderInformation FolderInfo { get; set; }
+        public bool IsImported { get { return RegistryInfo != null || FolderInfo != null; } }
 
         public LLApplication() { }
 
@@ -33,6 +36,17 @@ namespace LaunchLaterOM
             xml.Add(new XAttribute("DelaySeconds", DelaySeconds.ToString()));
             xml.Add(new XAttribute("Arguments", Arguments));
             xml.Add(new XAttribute("Enabled", Enabled.ToString()));
+            if (RegistryInfo != null)
+            {
+                xml.Add(new XAttribute("RegistryName", RegistryInfo.RegistryName),
+                        new XAttribute("RegistryLocation", RegistryInfo.RegistryLocation),
+                        new XAttribute("RegistryKey", RegistryInfo.RegistryKey),
+                        new XAttribute("RegistryValue", RegistryInfo.RegistryValue));
+            }
+            if (FolderInfo != null)
+            {
+                xml.Add(new XAttribute("ShortcutFullPath", FolderInfo.ShortcutFullPath));
+            }
             return xml;
         }
 
