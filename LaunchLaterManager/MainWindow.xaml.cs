@@ -24,6 +24,9 @@ namespace LaunchLaterManager
 
         private AppsListViewModel appsListVM;
 
+        private static List<LLApplication> _startupItemsToBeDeleted = new List<LLApplication>();
+        private static List<LLApplication> _startupItemsToBeRestored = new List<LLApplication>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -124,23 +127,30 @@ namespace LaunchLaterManager
 
         }
 
-        void AppsListBox_OnAppDeleted(object sender, EventArgs e)
+        void AppsListBox_OnAppDeleted(object sender, AppDeletedEventArgs e)
         {
             var app = ((AppView)sender).App;
 
             var vm = (from v in appsListVM.Applications
                       where v.App == app
                       select v).FirstOrDefault();
+
+
             if (vm == null)
             {
-                appsListVM.Applications.Remove(appsListVM.Applications.Last());
-                config.DefaultProfile.Applications.Remove(config.DefaultProfile.Applications.Last());
+                app = config.DefaultProfile.Applications.Last();
+                vm = appsListVM.Applications.Last();
             }
-            else
+
+            if (e.ShouldRestoreToStartupItems)
             {
-                appsListVM.Applications.Remove(vm);
-                config.DefaultProfile.Applications.Remove(app);
+                // restore the item before deleting it
+                if (app.IsImported)
+                    _startupItemsToBeRestored.Add(app);                    
             }
+
+            appsListVM.Applications.Remove(vm);
+            config.DefaultProfile.Applications.Remove(app);            
 
             config.IsDirty = true;
         }
@@ -159,6 +169,11 @@ namespace LaunchLaterManager
                 MessageBoxResult result = MessageBox.Show("Do you want to save changes?", "LaunchLater", MessageBoxButton.YesNoCancel);
                 if (result == MessageBoxResult.Yes)
                 {
+                    foreach (var app in _startupItemsToBeDeleted)
+                        StartupItem.Delete(app);
+                    foreach (var app in _startupItemsToBeRestored)
+                        StartupItem.Restore(app);
+
                     config.WriteFreshConfigurationFile();
                     Application.Current.Shutdown();
                 }
@@ -194,9 +209,8 @@ namespace LaunchLaterManager
                     var appVM = new AppViewModel() { App = newApp };
                     appsListVM.Applications.Add(appVM);
                     config.IsDirty = true;
-                    return true;
+                    _startupItemsToBeDeleted.Add(newApp);
                 }
-                return false;
             };
             startupItemsWindow.Show();
         }        
