@@ -42,9 +42,8 @@ namespace LaunchLaterManager.Views
             this.DataContext = viewModel;
         }
 
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        private void Import_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: make a button for this instead of just doing it during close
             var viewModel = this.DataContext as StartupItemsViewModel;
             foreach (var selectedItem in viewModel.StartupItems.Where(x => x.IsChecked))
             {
@@ -55,11 +54,7 @@ namespace LaunchLaterManager.Views
                     ApplicationCreated(newApp);
                 }
             }
-
-            base.OnClosing(e);
-        }
-
-
-        
+            this.Close();
+        }        
     }    
 }
