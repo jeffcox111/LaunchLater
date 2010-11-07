@@ -8,14 +8,17 @@
         </DataTemplate>
     </Window.Resources>
     <Grid Loaded="Grid_Loaded">
-
-        <ListBox ItemsSource="{Binding StartupItems}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" 
+        <StackPanel>
+            <ListBox ItemsSource="{Binding StartupItems}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" 
                           Content="{Binding Name}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox> 
+            <TextBlock TextWrapping="Wrap">* Items that are not automatically selected have been reported as problematic, re-check at your own risk.</TextBlock>
+            <Button Click="Import_Click">Import Selected</Button>
+        </StackPanel>
     </Grid>
 </Window>
