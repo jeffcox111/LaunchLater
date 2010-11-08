@@ -1,21 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Xml.Linq;
-using System.Collections.ObjectModel;
-using Microsoft.Win32;
-using System.IO;
+﻿using LaunchLaterManager.ViewModels;
 using LaunchLaterOM;
-using LaunchLaterManager.ViewModels;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 
 namespace LaunchLaterManager.Views
 {
@@ -37,17 +25,17 @@ namespace LaunchLaterManager.Views
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             var viewModel = new StartupItemsViewModel();
-            viewModel.StartupItems = new ObservableCollection<StartupItem>(StartupItem.GetStartupItems());
-
+            viewModel.StartupItems = new ObservableCollection<StartupItemViewModel>();
+            StartupItem.GetStartupItems().ToList().ForEach(x => viewModel.StartupItems.Add(new StartupItemViewModel() { StartupApp = x }));
             this.DataContext = viewModel;
         }
 
         private void Import_Click(object sender, RoutedEventArgs e)
         {
             var viewModel = this.DataContext as StartupItemsViewModel;
-            foreach (var selectedItem in viewModel.StartupItems.Where(x => x.IsChecked))
+            foreach (var selectedItem in viewModel.StartupItems.Where(x => x.StartupApp.IsChecked))
             {
-                var newApp = selectedItem.CreateApp();
+                var newApp = selectedItem.StartupApp.CreateApp();
                 if (ApplicationCreated != null && newApp != null)
                 {
                     // the parent window should deal with adding the app to the config file

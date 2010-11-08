@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
+﻿using LaunchLaterOM;
 using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
 
 namespace LaunchLaterOM
 {
@@ -106,7 +107,23 @@ namespace LaunchLaterOM
             var startupItems = new List<StartupItem>();
             startupItems.AddRange(PopulateFolderStartupItems());
             startupItems.AddRange(PopulateRegistryStartupItems());
+
+            var invalidItems = (from i in startupItems
+                               where getInvalidStartupApps().Contains(i.Name)
+                               select i).ToList();
+
+            invalidItems.ForEach(x => startupItems.Remove(x));
+            
             return startupItems;
+        }
+
+        public static IEnumerable<string> getInvalidStartupApps()
+        {
+            List<string> result = new List<string>();
+
+            result.Add("LaunchLater");
+
+            return result;
         }
 
         private static IList<StartupItem> PopulateFolderStartupItems()
@@ -219,5 +236,7 @@ namespace LaunchLaterOM
                 }
             }
         }
+
+        
     }
 }
