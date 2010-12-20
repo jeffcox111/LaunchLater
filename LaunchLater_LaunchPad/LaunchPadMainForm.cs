@@ -90,7 +90,7 @@ namespace LaunchLater_LaunchPad
             }
             catch
             {
-                EventLog.WriteEntry("LL_LauchPad", "Unable to launch configuration UI.", EventLogEntryType.Error);
+                Logger.LogError("Unable to launch configuration UI.");
             }
 
         }
@@ -163,7 +163,7 @@ namespace LaunchLater_LaunchPad
             }
             catch (Exception ex)
             {
-                EventLog.WriteEntry("LaunchPad", "There was an error creating the LaunchPad context menu. " + ex.ToString(), EventLogEntryType.Error);
+                Logger.LogError("There was an error creating the LaunchPad context menu. " + ex.ToString());
             }
         }
 
@@ -257,7 +257,7 @@ namespace LaunchLater_LaunchPad
         {
             try
             {
-                EventLog.WriteEntry("LaunchPad", "Launching application: " + e.Name);
+                Logger.LogInfo("Launching application: " + e.Name);
 
                 trayIcon.ShowBalloonTip(0, "LaunchLater", "Executing " + e.Name, ToolTipIcon.Info);
             }
@@ -271,7 +271,7 @@ namespace LaunchLater_LaunchPad
         {
             if (LLApplicationsManager.NumberOfAppsRemaining() == 0)
             {
-                System.Diagnostics.EventLog.WriteEntry("LaunchPad", "Finished launching all configured applications.");
+                Logger.LogInfo("Finished launching all configured applications.");
                 trayIcon.Dispose();
                 Application.Exit();
             }
