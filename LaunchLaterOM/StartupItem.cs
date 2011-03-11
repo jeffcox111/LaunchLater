@@ -56,6 +56,10 @@ namespace LaunchLaterOM
                     LLUtilities.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.Startup), app.FullPath, app.Arguments, app.Name);
                 }
             }
+            else
+            {
+                LLUtilities.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.Startup), app.FullPath, app.Arguments, app.Name);
+            }
         }
 
         public static void Delete(LLApplication app)
@@ -186,38 +190,58 @@ namespace LaunchLaterOM
                             continue;
 
                         var filePath = reg.Value;
+
+                        var pathAndArgs = filePath.Split('.');
+                        filePath = (pathAndArgs[0] + ".exe").Replace('\"', ' ').Trim();
+                        
                         var argsString = string.Empty;
+
+                        if (pathAndArgs.Length > 1)
+                        {
+                            argsString = pathAndArgs[1].Remove(0, 3).Trim().Replace('\"', ' ');
+                        }
+
+
                         if (!File.Exists(filePath))
                         {
                             // we need to attempt to break out the path from the command arguments
-                            var inQuotes = false;
-                            var pathValues = reg.Value.Split(c =>
-                            {
-                                if (c == '\"')
-                                    inQuotes = !inQuotes;
+                            
+                            //var inQuotes = false;
+                            //var pathValues = reg.Value.Split(c =>
+                            //{
+                            //    if (c == '\"')
+                            //        inQuotes = !inQuotes;
 
-                                return !inQuotes && c == ' ';
-                            })
-                            .Select(arg => arg.Trim().Replace("\"", ""))
-                            .Where(arg => !string.IsNullOrEmpty(arg)).ToList();
-                            filePath = pathValues.FirstOrDefault();
+                            //    return !inQuotes && c == ' ';
+                            //})
+                            //.Select(arg => arg.Replace("\"", ""))
+                            //.Where(arg => !string.IsNullOrEmpty(arg)).ToList();
 
-                            // either we have a parsing error or the file doesn't exist, just skip it and move along
-                            if (filePath == null || !File.Exists(filePath))
-                                continue;
+                            //filePath = getFilePath(ref pathValues);
+                            //pathValues.FirstOrDefault();
 
-                            foreach (var args in pathValues)
-                            {
-                                if (args != filePath)
-                                {
-                                    if (argsString != string.Empty)
-                                        argsString += " ";
-                                    argsString += args;
-                                }
-                            }
+                            //// either we have a parsing error or the file doesn't exist, just skip it and move along
+                            //if (filePath == null || !File.Exists(filePath))
+                               continue;
+
+                            
+                            //foreach (var args in pathValues)
+                            //{
+                            //    if (args != filePath)
+                            //    {
+                            //        if (argsString != string.Empty)
+                            //            argsString += " ";
+                            //        argsString += args;
+                            //    }
+                            //}
                         }
 
-                        startupItems.Add(new StartupRegistryItem(filePath, reg.Key, reg.Value, regKey.Name, runKey, argsString));
+                        var existingApp = (from a in startupItems
+                                        where a.FullPath == filePath
+                                        select a).ToList();
+                        
+                        if(existingApp.Count == 0)
+                            startupItems.Add(new StartupRegistryItem(filePath, reg.Key, reg.Value, regKey.Name, runKey, argsString));
                     }
                 }
             }

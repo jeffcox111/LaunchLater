@@ -20,7 +20,7 @@
         
     </UserControl.Resources>
        
-    <Grid x:Name="grid" >
+    <Grid x:Name="grid">
 
         
             <ItemsControl Name="ApplicationsListView" ItemsSource="{Binding Applications}" ItemTemplate="{StaticResource ApplicationsTemplate }"

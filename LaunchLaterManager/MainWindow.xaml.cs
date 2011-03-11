@@ -64,6 +64,8 @@ namespace LaunchLaterManager
 
             checkForUpdatesAsynchronously();
 
+            
+            
 
         }
 
@@ -145,7 +147,7 @@ namespace LaunchLaterManager
             if (e.ShouldRestoreToStartupItems)
             {
                 // restore the item before deleting it
-                if (app.IsImported)
+                //if (app.IsImported)
                     _startupItemsToBeRestored.Add(app);                    
             }
 
