@@ -51,7 +51,7 @@ namespace LaunchLater_LaunchPad
             LLApplicationsManager.AppStarting += new LLApplicationsManager.AppStartingEventHandler(LLApplicationsManager_AppStarting);
             trayIcon = new NotifyIcon();
             trayIcon.Text = "Launch Later";
-            trayIcon.Icon = new Icon("settings.ico");
+            trayIcon.Icon = new Icon("LaunchPad.ico");
             trayIcon.Visible = true;
 
             trayIcon.ShowBalloonTip(0, "LaunchLater", "Executing application schedule...", ToolTipIcon.Info);

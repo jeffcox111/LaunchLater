@@ -1,25 +1,31 @@
 ﻿<Window x:Class="LaunchLaterManager.Views.StartupItemsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="StartupItemsWindows" Width="300" Height="148" WindowStyle="ToolWindow">
+        Title="StartupItemsWindows" Width="300" Height="248" WindowStyle="ToolWindow">
     <Window.Resources>
         <DataTemplate x:Key="StartupItemTemplate">
-            <TextBlock Text="{Binding StartupApp.Name}" Foreground="White" ></TextBlock>
+            <!--<TextBlock Text="{Binding StartupApp.Name}" Foreground="White" ></TextBlock>-->
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding AppIcon}" ></Image>
+                <CheckBox IsChecked="{Binding StartupApp.IsChecked, Mode=TwoWay}" 
+                          Content="{Binding StartupApp.Name}" Foreground="{DynamicResource BasicText}"/>
+            </StackPanel>
         </DataTemplate>
     </Window.Resources>
-    <Grid Loaded="Grid_Loaded" Background="Black">
+    <Grid Loaded="Grid_Loaded" Background="Black" >
         <StackPanel>
-            <ListBox ItemsSource="{Binding StartupItems}" Background="Black" Foreground="{DynamicResource BasicText}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding AppIcon}" ></Image>
-                        <CheckBox IsChecked="{Binding StartupApp.IsChecked, Mode=TwoWay}" 
-                          Content="{Binding StartupApp.Name}" Foreground="{DynamicResource BasicText}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox> 
+            <ScrollViewer MaxHeight="150">
+                <ItemsControl ItemsSource="{Binding StartupItems}" Background="Black" Foreground="{DynamicResource BasicText}"
+                              ItemTemplate="{StaticResource StartupItemTemplate}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Vertical" ></VirtualizingStackPanel>
+
+
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
             <TextBlock TextWrapping="Wrap">* Items that are not automatically selected have been reported as problematic, re-check at your own risk.</TextBlock>
             <Button Click="Import_Click" HorizontalAlignment="Left" Width="186" Margin="50,0,0,0" Content="Import Selected"/>
         </StackPanel>

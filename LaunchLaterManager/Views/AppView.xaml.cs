@@ -98,8 +98,8 @@ namespace LaunchLaterManager
             if (result == MessageBoxResult.Yes)
             {
                 var shouldRestore = false;
-                if (App.IsImported)
-                    shouldRestore = MessageBox.Show("Do you want LaunchLater to put this application back from where it was originally imported?", "LaunchLater", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+//                if (App.IsImported)
+                    shouldRestore = MessageBox.Show("Do you want LaunchLater to put this application back from where it was originally imported?\n (Non-Imported Apps go to the Startup Folder)", "LaunchLater", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
 
                 OnAppDeleted(this, new AppDeletedEventArgs(shouldRestore));
             }                      
