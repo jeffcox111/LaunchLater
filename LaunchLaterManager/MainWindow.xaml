@@ -8,6 +8,20 @@
     WindowStyle="ToolWindow" 
     ResizeMode="CanResizeWithGrip"
     Closing="Window_Closing">
+	<Window.Resources>
+		<Storyboard x:Key="LogoMotion">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(SkewTransform.AngleX)" Storyboard.TargetName="imgLogo">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="-24"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+	</Window.Resources>
+	<Window.Triggers>
+		<EventTrigger RoutedEvent="FrameworkElement.Loaded">
+			<BeginStoryboard Storyboard="{StaticResource LogoMotion}"/>
+		</EventTrigger>
+	</Window.Triggers>
     <Grid x:Name="grid" Loaded="Grid_Loaded" Background="Black" Margin="0">
     	<Grid.RowDefinitions>
     		<RowDefinition Height="64"/>
@@ -16,23 +30,31 @@
 <!--<local:AppView x:Name="TempAppView"   />-->
     	<Grid
     Margin="0,0,8,-25.677">
-    		<TextBlock
-    HorizontalAlignment="Left" TextWrapping="Wrap" Text="LaunchLater" VerticalAlignment="Top" Foreground="#FFCD8B51" FontSize="37.333"/>
-    		<Grid Margin="200.001,25,8,0" Height="56.677" VerticalAlignment="Top" >
+    		<Grid Margin="208.001,8,0,0" Height="69.057" VerticalAlignment="Top" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="32*" />
                     <RowDefinition Height="25*" />
                 </Grid.RowDefinitions>
                 <Button 
-    				x:Name="ImportStartupItemsButton" Content="Import Startup Items" HorizontalAlignment="Right" Margin="0,0,210,23" Click="ImportStartupItemsButton_Click" VerticalAlignment="Bottom" Grid.RowSpan="2" Width="128" />
-    			<ComboBox x:Name="cmbSorting" Margin="0,12,91,23" d:LayoutOverrides="Height" Grid.RowSpan="2" HorizontalAlignment="Right" Width="105" />
+    				x:Name="ImportStartupItemsButton" Content="Import Startup Items" HorizontalAlignment="Right" Margin="0,11.259,87,5.549" Click="ImportStartupItemsButton_Click" Width="128" d:LayoutOverrides="Height" ToolTip="Import apps that already start when Windows boots" />
+    			<ComboBox x:Name="cmbSorting" Margin="0,-0.001,8,6.288" d:LayoutOverrides="HorizontalAlignment" HorizontalAlignment="Right" Width="105" Grid.Row="1" Height="24" />
     			<Button
-    				x:Name="AddButton" Content="Add App" Width="75" d:LayoutOverrides="HorizontalAlignment" Click="AddButton_Click" HorizontalAlignment="Right" Margin="0,12,0,0" VerticalAlignment="Top" Grid.RowSpan="2" />
+    				x:Name="AddButton" Content="Add App" Width="75" d:LayoutOverrides="HorizontalAlignment" Click="AddButton_Click" HorizontalAlignment="Right" Margin="0,11.259,8,0" VerticalAlignment="Top" ToolTip="Add a new app that doesn't already start with Windows" />
     		</Grid>
-    		<Button x:Name="cmdUpdate" Content="Click here to download the new version!" HorizontalAlignment="Right" Height="17" Margin="0,8,8,0" VerticalAlignment="Top" Width="172" FontSize="9.333" Foreground="#FF0B2AA7" Click="Button_Click" Visibility="Hidden"/>
+    		<Button x:Name="cmdUpdate" Content="Download New Version!" Height="19.057" Margin="245,8,224,0" VerticalAlignment="Top" FontSize="9.333" Foreground="#FF0B2AA7" Click="Button_Click" RenderTransformOrigin="0.366,-0.499" Visibility="Hidden"/>
+    		<Image x:Name="imgLogo" Margin="0,-23,0,-16" Source="LaunchLaterLogo.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="245">
+    			<Image.RenderTransform>
+    				<TransformGroup>
+    					<ScaleTransform/>
+    					<SkewTransform/>
+    					<RotateTransform/>
+    					<TranslateTransform/>
+    				</TransformGroup>
+    			</Image.RenderTransform>
+    		</Image>
     	</Grid>
     	<ScrollViewer
-    MaxHeight="{Binding Height, ElementName=window}" Margin="0,0.677,0,0" Grid.Row="1" VerticalAlignment="Top">
+    MaxHeight="{Binding Height, ElementName=window}" Margin="0,11.7,0,0" Grid.Row="1" VerticalAlignment="Top">
     		<local:AppsListView
     x:Name="AppsListBox" VerticalAlignment="Stretch"/>
     	</ScrollViewer>
