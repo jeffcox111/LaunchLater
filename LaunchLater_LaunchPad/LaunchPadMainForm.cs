@@ -23,10 +23,22 @@ namespace LaunchLater_LaunchPad
         public LaunchPadMainForm()
         {
             InitializeComponent();
+
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(
+               (sender, e) =>
+               {
+                   if (e.IsTerminating)
+                   {
+                       object o = e.ExceptionObject;
+                       Logger.LogError("An error occurred in the LaunchPad: " + o.ToString());
+                   }
+               });
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+           
             LLApplicationsManager.Start();
             initTrayIcon();
 
@@ -40,10 +52,13 @@ namespace LaunchLater_LaunchPad
         private void checkForUpdates()
         {
             string txt = Application.ProductVersion.Substring(0, 3);
-            double currentVersion = double.Parse(txt);
-            if (Updater.UpdateExists(currentVersion))
-                trayIcon.ShowBalloonTip(0, "An update is available!", @"Go to http://launchlater.codeplex.com or start LaunchLater Configuration to get the update!", ToolTipIcon.Info);
-
+            double currentVersion;
+            bool success = double.TryParse(txt, out currentVersion);
+            if (success)
+            {
+                if (Updater.UpdateExists(currentVersion))
+                    trayIcon.ShowBalloonTip(0, "An update is available!", @"Go to http://launchlater.codeplex.com or start LaunchLater Configuration to get the update!", ToolTipIcon.Info);
+            }
         }
 
         private void initTrayIcon()

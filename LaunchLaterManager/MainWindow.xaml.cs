@@ -94,9 +94,13 @@ namespace LaunchLaterManager
         private void checkForUpdates()
         {
             string txt = System.Windows.Forms.Application.ProductVersion.Substring(0, 3);
-            double currentVersion = double.Parse(txt);
-            if (Updater.UpdateExists(currentVersion))
-                cmdUpdate.Visibility = System.Windows.Visibility.Visible;
+            double currentVersion;
+            bool success = double.TryParse(txt, out currentVersion);
+            if (success)
+            {
+                if (Updater.UpdateExists(currentVersion))
+                    cmdUpdate.Visibility = System.Windows.Visibility.Visible;
+            }
         }
 
         private void InitSortingOptions()
