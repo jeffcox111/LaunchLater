@@ -40,8 +40,14 @@ namespace LaunchLaterOM
 
         static void x_AppStarting(object sender, AppStartingEventArgs e)
         {
-            AppStarting(null, new AppStartingEventArgs { Name = e.Name });
-
+            try
+            {
+                AppStarting(null, new AppStartingEventArgs { Name = e.Name });
+            }
+            catch (Exception ex)
+            {
+                //swallow
+            }
         }
 
         public static void Stop()
