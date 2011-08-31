@@ -6,12 +6,29 @@ namespace LaunchLaterOM
     {
         public string Name { get; set; }
         public string FullPath { get; set; }
-        public int DelaySeconds { get; set; }
         public string Arguments { get; set; }
         public bool Enabled { get; set; }
         public StartupRegistryInformation RegistryInfo { get; set; }
         public StartupFolderInformation FolderInfo { get; set; }
         public bool IsImported { get { return RegistryInfo != null || FolderInfo != null; } }
+
+        private int delaySeconds;
+        public int DelaySeconds
+        {
+            get { return delaySeconds; }
+            set
+            {
+                if (value == 0)
+                {
+                    delaySeconds = 1;
+                }
+                else
+                {
+                    delaySeconds = value;
+                }
+            }
+        }
+            
 
         public LLApplication() { }
 
