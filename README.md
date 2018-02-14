@@ -2,9 +2,6 @@
 
 A Windows application that allows for deferred automatic startup of applications at boot.
 
-Installer can be found at http://launchlater.codeplex.com/
-
-
 Latest Release: https://github.com/jeffcox111/LaunchLater/releases/tag/v2.4
 
 LaunchLater allows you to defer the launch of applications that run at Windows login. This lets Windows focus on booting itself first, then subsequently running a list of configured startup apps using a schedule that you control.  Sometimes, procrastination really does pay off!
