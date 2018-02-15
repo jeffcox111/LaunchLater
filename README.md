@@ -10,3 +10,10 @@ LaunchLater allows you to defer the launch of applications that run at Windows l
  
 LaunchLater is written with C# 4.0, using .Net Framework 4.0 and the Windows Presentation Foundation (WPF).
 
+Building this application requires Visual Studio with the following tools installed:
+
+Visual Studio 2017 Installer Projects: https://marketplace.visualstudio.com/items?itemName=VisualStudioProductTeam.MicrosoftVisualStudio2017InstallerProjects
+
+Microsoft Expression Blend Software Development Kit (SDK) for .NET 4:  https://www.microsoft.com/en-us/download/details.aspx?id=10801
+
+
